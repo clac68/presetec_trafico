@@ -1,0 +1,78 @@
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+
+    <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+    <script src="/js/dev/clases_base/bd.js"></script>
+    <script src="/js/dev/mantenedores/mantenedor_erlangs.js"></script>
+    <script src="/js/dev/clases_base/erlangs.js"></script>
+    <script src="/js/dev/clases_base/Tabla.js"></script>
+    <script src="/js/utiles.js"></script>
+
+    <title></title>
+  </head>
+  <body>
+    <fieldset>
+      <legend>Mantendedor de Erlangs</legend>
+      <select id='cbErlangs' class="" name=""></select>
+
+      </select>
+      <br>
+      <p id='mensaje_erlangs'></p>
+      <br>
+      <button id='btnAddErlang' type="button" name="button">Agregar</button>
+      <button id='btnUpdateErlang' type="button" name="button">Actualizar</button>
+      <button id='btnDeleteErlang' type="button" name="button">Eliminar</button>
+      <button id='btnUploadErlang' type="button" name="button">Cargar Archivo</button>
+      <div id ='contenedor_tabla_erlang' class="">
+    </fieldset>
+    <fieldset id='fsAccion'>
+      <legend id=legendAccion>Cambiar</legend>
+      <label for="inputCodeErlang" >Valor</label>
+      <input id='inputCodeErlang' type="text" name="" value="">
+      <label for="inputValorErlang">Erlang</label>
+      <input id='inputValorErlang' type="text" name="" value="">
+      <button id='btnAccionErlang' type="button" name="button">Proceder</button>
+    </fieldset>
+    <fieldset id='fsCargaErlang'>
+      <legend>Selecciona el archivo a cargar.</legend>
+      <input id='fileErlang' type="file" name="" value="">
+      <button id='btnCargarArchivoErlang' type="button" name="button">Cargar en BD</button>
+      <div id ='contenedor_tabla_erlangs' class=""></div>
+
+    </fieldset>
+  </body>
+</html>
+
+<script type="text/javascript">
+
+  window.onload=function(){
+    console.log('inicio');
+    var config=getConfigErlang();
+    console.log(config);
+    var mantenedorErlangs=new MantenedorErlangs(bd, config);
+  }
+
+  function getConfigErlang(){
+    var config ={};
+    config.cbErlangs=document.getElementById('cbErlangs');
+    config.msg=document.getElementById('mensaje_erlangs');
+    config.contenedorTablaErlang=document.getElementById('contenedor_tabla_erlang');
+    config.btnAddErlang=document.getElementById('btnAddErlang');
+    config.btnUpdateErlang=document.getElementById('btnUpdateErlang');
+    config.btnDeleteErlang=document.getElementById('btnDeleteErlang');
+    config.btnUploadErlang=document.getElementById('btnUploadErlang');
+    config.inputCodeErlang=document.getElementById('inputCodeErlang');
+    config.inputValorErlang=document.getElementById('inputValorErlang');
+    config.btnAccionErlang=document.getElementById('btnAccionErlang');
+    config.fileErlang=document.getElementById('fileErlang');
+    config.contenedorTablaErlangs=document.getElementById('contenedor_tabla_erlangs');
+    config.fsAccion=document.getElementById('fsAccion');
+    config.fsLegendaAccion=document.getElementById('legendAccion');
+    config.fsCargaErlang=document.getElementById('fsCargaErlang');
+    config.btnCargarArchivoErlang=document.getElementById('btnCargarArchivoErlang');
+
+    return config;
+  }
+</script>

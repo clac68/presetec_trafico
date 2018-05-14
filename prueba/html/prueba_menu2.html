@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+
+    <script src="/js/dev/clases_base/menu.js"></script>
+    <script src="/js/dev/clases_base/ventana_rutas.js"></script>
+    <script src="/js/utiles.js"></script>
+    <link rel="stylesheet" href="/css/clac_style.css">
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id='div1' class="">
+      <img id='img1' src="/images/vtr1.png" alt="">
+    </div>
+    <script type="text/javascript">
+
+      var x=document.getElementById('div1');
+      document.menuCLAC=new Menu(x,{'descargar':1}, function(){
+        console.log('click menu');
+      });
+
+      x.oncontextmenu=function(e){
+        var img=document.getElementById('img1');
+        img.style.display='none';
+        img.style.position='absolute';
+        console.log(img);
+        e.preventDefault();
+        e.stopPropagation();
+        console.log(e.pageX);
+        console.log(e.pageY);
+        console.log(e);
+        console.log(img);
+        //document.menuCLAC.show({}, e.pageX, e.pageY);
+        img.style.left=e.pageX+'px';
+        img.style.top=e.pageY+'px';
+        img.style.display='block';
+      }
+    </script>
+  </body>
+</html>

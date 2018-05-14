@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+  <script src="/js/w3.js"></script>
+
+</head>
+<body>
+  <input id="correo" type="email"></input>
+  <input id="pwd" type="password"></input>
+  <button id="btnValida" onclick="ValidaUsuario()">Validar Usuario</button>
+
+<script>
+
+
+function ValidaUsuario(){
+  var email=document.getElementById("correo").value;
+  var pwd =document.getElementById("pwd").value;
+  console.log("email-pwd:"+email+"-"+pwd)
+  console.log(email);
+  /*
+  firebase.auth().signInWithEmailAndPassword(email, pwd, function(){
+    console.log('OK');
+  }, function(e){
+    console.error(e);
+    console.log(error);
+  });
+  */
+
+  firebase.auth().signInWithEmailAndPassword(email, pwd).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  console.log(error);
+  // ...
+  });
+
+}
+
+Init();
+
+function Init(){
+  if (!firebase.apps.length) {
+    console.log("inciando BD Firebase. clac");
+    var config = {
+      apiKey: "AIzaSyBoosEXeXS9Yk_8zPseFwplT7DD8sJTgZ4",
+      authDomain: "trafico-bca90.firebaseapp.com",
+      databaseURL: "https://trafico-bca90.firebaseio.com",
+      projectId: "trafico-bca90",
+      storageBucket: "trafico-bca90.appspot.com",
+      messagingSenderId: "256756269027"
+    };
+    firebase.initializeApp(config);
+  }
+  firebase.auth().languageCode = 'sp';
+}
+</script>
+</body>
+</html>

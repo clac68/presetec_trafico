@@ -1,0 +1,628 @@
+
+<html>
+<head>
+  <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+  <script src="/js/dev/clases_base/bd.js"></script>
+  <script src="/js/dev/clases_base/usuarios.js"></script>
+  <script src="/js/dev/clases_base/erlangs.js"></script>
+  <script src="/js/dev/clases_base/centrales.js"></script>
+  <script src="/js/dev/clases_base/nemos.js"></script>
+  <script src="/js/dev/clases_base/rutas.js"></script>
+  <script src="/js/dev/clases_base/trafico_diario.js"></script>
+  <script src="/js/dev/clases_base/trafico_mensual.js"></script>
+  <script src="/js/dev/clases_base/Tabla.js"></script>
+  <script src="/js/utiles.js"></script>
+
+
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<link rel="stylesheet" href="/css/clac_style.css">
+
+
+
+</head>
+<body>
+  <div id="menumouse">
+<ul>
+<li><a href="">Perfil</a></li>
+<li><a href="">Carro</a></li>
+<li><a href="">Modificar Perfil</a></li>
+<li><a href="">EstadoCompra</a></li>
+</ul>
+</div>
+  <fieldset>
+    <div id='contenedor_tabla'>Tabla </div>
+    <button type="button" name="button" onclick='CargaTablaPrueba()'>Carga Tabla de Prueba</button>
+    <button type="button" name="button" onclick='BorraTablaPrueba()'>Borra Tabla de Prueba</button>
+    <button type="button" name="button" onclick='DescargarTabla()'>Descagar Tabla</button>
+  </fieldset>
+
+  <fieldset>
+    <legend>Tráfico Mensual</legend>
+    <button type="button" name="button" onclick="getEstadisticaMensualfromTraficoDiario()">Get Estdistica Mensual</button>
+    <button type="button" name="button" onclick="saveEstadisticaMensual()">Get Estdistica Mensual</button>
+    <button type="button" name="button" onclick="getEstadisticaMensualFromBD()">Get Estdistica Mensual</button>
+
+  </fieldset>
+  <fieldset>
+    <legend>Tráfico Diario</legend>
+    <input type="date" name="" value="" id="fecha_trafico_diario">
+    <button type="button" name="button" onclick='GetTraficoDiarioFromBD()'>Get Trafico desde BD</button>
+    <button type="button" name="button" onclick='SaveTraficoDiario()'>Save Traficio Diario Parcial</button>
+    <button type="button" name="button" onclick='SaveTraficoDiarioTotal()'>Save Traficio Diario Mes Completo</button>
+    <button type="button" name="button" onclick='getRutasSinTrafico()'>Get Rutas Sin Trafico</button>
+    <button type="button" name="button" onclick='getRutas()'>Get Rutas</button>
+    <button type="button" name="button" onclick='deleteTrafico()'>Borrar Datos</button>
+    <button type="button" name="button" onclick='deleteTraficoAdministrativo()'>Borrado Administrativo</button>
+    <input type="file" id="ArchivoTraficoDiario" name="" value="", onchange="CargaTraficoFromFile()" multiple></input>
+  </fieldset>
+  <br>
+  <fieldset>
+    <legend>Rutas</legend>
+    <input type="date" name="" value="" id="fecha_ruta">
+    <button type="button" name="button" onclick="GetRutasFromBD()">Get Rutas From BD</button>
+    <button type="button" name="button" onclick="SaveRutas()">Save Rutas</button>
+    <button type="button" name="button" onclick="DeleteRutas()">Delete Rutas de Central</button>
+    <input type="file" id="ArchivoRutas" name="" value="", onchange="CargRutas()"></input>
+    <button type="button" name="button" onclick="ComparaRutas()">Compara rutas mes anterior</button>
+    <button type="button" name="button" onclick="GetParametrosRuta()">Get parámetros de rutas</button>
+    <button type="button" name="button" onclick="GetRutasConParametro()">GetRutas con Parametro</button>
+  </fieldset>
+  <br>
+  <fieldset>
+    <legend>Erlangs</legend>
+    <button id="btnAddErlang" onclick="AddErlang()">Add Erlang</button>
+    <button id="btnDelErlang" onclick="DelErlang()">Delete Erlang</button>
+    <button id="btnUpdateErlang" onclick="UpdateErlang()">Update Erlang</button>
+    <button id="btnGetErlangs" onclick="getErlangs()">Get Erlangs</button>
+    <button id="btnGetErlangs" onclick="saveErlangs()">Save Erlangs</button>
+    <button id="btnGetErlangs" onclick="deleteErlangs()">Delete Erlangs</button>
+    <input type="file" id="ArchivoErlangs" name="" value="", onchange="CargaErlangs()"></input>
+  </fieldset>
+  <br>
+  <fieldset>
+    <legend>Centrales</legend>
+    <button type="button" name="button" onclick="getCentrales()">Get Centrales</button>
+    <button type="button" name="button" onclick="AddCentral()">Add Central</button>
+    <button type="button" name="button" onclick="DelCentral()">Delete Central</button>
+    <button type="button" name="button" onclick="UpdateCentral()">Update Central</button>
+  </fieldset>
+  <br>
+  <fieldset>
+    <legend>Nemos</legend>
+    <button type="button" name="button" onclick="AgregaNemo()">Add Nemo</button>
+    <button type="button" name="button" onclick="DeleteNemo()">Delete Nemo</button>
+    <button type="button" name="button" onclick="UpdateNemo()">Update Nemo</button>
+    <button type="button" name="button" onclick="GetNemos()">Get Nemos</button>
+    <button type="button" name="button" onclick="SaveNemos()">Save Nemos</button>
+    <button type="button" name="button" onclick="DeleteNemos()">Delete Nemos</button>
+    <input type="file" id="ArchivoNemos" name="" value="", onchange="CargaNemos()"></input>
+  </fieldset>
+  <br>
+  <fieldset>
+    <legend>Usuarios.js</legend>
+    <button id="btnAddUser" onclick="AddUser()">Agrega Usuario</button>
+    <button id="btnValidaUsario" onclick="ValidaUsuario()">Valida Usuario</button>
+    <button id="btnSalir" onclick="Salir()">Salir</button>
+    <button id="btnReestablecerPwd" onclick="ReestablecerPwd()">Reestablecer Password</button>
+    <button id="btnPreguntaEstado" onclick="isSingedIn()">Está Conectado</button>
+    <button id="btnGetUsers" onclick="GetUsers()">Get Users</button>
+  </fieldset>
+
+<script>
+
+function getTablaObj(){
+  cont=document.getElementById('contenedor_tabla');
+  if (typeof document.tabla=='undefined' ){
+    document.tabla=new Tabla(cont);
+  }
+  return document.tabla;
+}
+
+function DescargarTabla(){
+  var tabla=getTablaObj();
+  tabla.exportTableToCSV('prueba.csv');
+}
+
+function CargaTablaPrueba(){
+  var tabla=getTablaObj();
+  tabla.Test(30, 10);
+}
+function BorraTablaPrueba(){
+  var tabla=getTablaObj();
+  tabla.Delete();
+}
+
+function getTraficoMensualObj(){
+  if (typeof document.trafico_mensual=="undefined"){
+    console.log("Creando objeto de Trafico Mensual");
+    document.trafico_diario=new TraficoMensual(bd);
+  }
+  return document.trafico_diario;
+}
+
+function getTraficoDiarioObj(){
+  if (typeof document.trafico_diario=="undefined"){
+    console.log("Creando objeto de Trafico Diario");
+    document.trafico_diario=new TraficoDiario(bd);
+  }
+  return document.trafico_diario;
+}
+function getRutas(){
+  var Trafico=getTraficoDiarioObj();
+  var rutas=Trafico.getRutas();
+  console.log(rutas);
+}
+
+function deleteTraficoAdministrativo(){
+  var fecha= getFecha('fecha_trafico_diario');
+  var Trafico=getTraficoDiarioObj();
+  Trafico.deleteMantencion(fecha.getFullYear(), fecha.getMonth(), function(){
+    console.log('deleteTraficoAdministrativo:OK');
+  }, function(e){
+    console.log('deleteTraficoAdministrativo:Error');
+    console.log(e);
+  });
+}
+
+function deleteTrafico(){
+  var Trafico=getTraficoDiarioObj();
+  Trafico.deleteDataDiaria(function(){
+    console.log('deleteTrafico:ok');
+  }, function(e){
+    console.log('deleteTrafico:error');
+    console.log(e);
+  });
+}
+
+function getRutasSinTrafico(){
+  var Trafico=getTraficoDiarioObj();
+  var rutas=Trafico.getRutasSinTrafico();
+  console.log(rutas);
+}
+function GetTraficoDiarioFromBD(){
+  var objTrafico=getTraficoDiarioObj();
+  var fecha= getFecha('fecha_trafico_diario');
+  objTrafico.getDataMesFromBD(fecha.getFullYear(), fecha.getMonth(),function(data){
+    console.log('GetTraficoDiarioFromBD:OK');
+    console.log(data);
+  }, function(e){
+    console.log('GetTraficoDiarioFromBD:ERROR');
+    console.log(e);
+  });
+}
+function SaveTraficoDiarioTotal(){
+    console.log('SaveTraficoDiarioTotal:Inicio');
+    var objTrafico=getTraficoDiarioObj();
+    objTrafico.saveAllDataInBD(function(){
+      console.log('SaveTraficoDiarioTotal:OK');
+    }, function(e){
+      console.log('SaveTraficoDiarioTotal:ERROR');
+      console.log(e);
+    }, function(count){
+      console.log('actual:'+count.cont+" - Máximo:"+count.max);
+    });
+}
+
+function SaveTraficoDiario(){
+  console.log('SaveTraficoDiario:Inicio');
+  var objTrafico=getTraficoDiarioObj();
+  objTrafico.savePartialDataInBD(function(){
+    console.log('SaveTraficoDiario:OK');
+  }, function(e){
+    console.log('SaveTraficoDiario:ERROR');
+    console.log(e);
+  }, function(count){
+    console.log('actual:'+count.cont+" - Máximo:"+count.max);
+  });
+}
+function CargaTraficoFromFile(){
+  var objTrafico=getTraficoDiarioObj();
+  console.log('CargaTraficiFromFile:Inicio');
+  var x = document.getElementById("ArchivoTraficoDiario");
+  console.log('files='+x.files.length);
+  for(var i=0; i<x.files.length;i++){
+    var archivo = x.files[i];
+    console.log(archivo);
+    if (archivo){
+      var lector = new FileReader();
+      lector.onload = function(e) {
+        var contenido = e.target.result;
+        var aux= getTraficoDiarioObj();
+        console.log(aux);
+        getTraficoDiarioObj().procesaHtml(archivo.name, contenido);
+        console.log(objTrafico.dataDiaria);
+      }
+      lector.readAsText(archivo);
+    }
+  }
+}
+
+function getRutasObj(){
+  if (typeof document.rutas=="undefined"){
+    console.log("Creando objeto de rutas");
+    document.rutas=new Rutas(bd);
+  }
+  return document.rutas;
+}
+
+function GetParametrosRuta(){
+  var res=document.rutas.getParametrosRuta();
+  console.log(res);
+}
+function GetRutasConParametro(){
+  var parametros={nem:'VTR'};
+  var res=document.rutas.getRutasConParametros(parametros);
+  console.log(res);
+}
+
+function ComparaRutas(){
+  var objRutas1=new Rutas(bd);
+  var objRutas2=new Rutas(bd);
+  var fecha= getFecha('fecha_ruta');
+  console.log('ComparaRutas');
+  objRutas1.getDataFromBD(fecha.getFullYear(), fecha.getMonth(), function(data){
+    console.log(data);
+    console.log(objRutas1.dataRutas);
+    var fecha1= getFechaConMesAnterior(fecha,1);
+    console.log(fecha1);
+    objRutas2.getDataFromBD(fecha1.getFullYear(), fecha1.getMonth(), function(data){
+      console.log(objRutas2.dataRutas);
+      var comparacion = objRutas1.getDiferenciaRutas(objRutas2);
+      console.log(comparacion);
+    }, function(e){
+      console.log('ComparaRutas:objRutas2:ERROR');
+    });
+  }, function(e){
+    console.log('ComparaRutas:objRutas1:ERROR');
+  });
+}
+
+function CargRutas(){
+  var fecha= getFecha('fecha_ruta');
+  var objNemos=getNemosObj();
+  var objRutas=getRutasObj();
+  var x = document.getElementById("ArchivoRutas");
+  var archivo = x.files[0];
+  if (archivo){
+    var lector = new FileReader();
+    lector.onload = function(e) {
+      var contenido = e.target.result;
+      var rutas = objRutas.getDataFromFile(fecha.getFullYear(), fecha.getMonth(), 'clac', contenido, function(codigo_nemo){
+        if (objNemos.nemos.length <= 0){
+          return 'indefinido';
+        }
+        if (typeof objNemos.nemos[codigo_nemo] == 'undefined'){
+          return 'indefinido';
+        }
+        return objNemos.nemos[codigo_nemo];
+      });
+      console.log('CargRutas:OK');
+      console.log('Número de Errores:'+objRutas.errores.length);
+      console.log(objRutas.errores);
+      console.log('Número de Warnings:'+objRutas.warnings.length);
+      console.log(objRutas.warninigs);
+      console.log(objRutas.dataRutas);
+    }
+    lector.readAsText(archivo);
+  }
+}
+
+function DeleteRutas(){
+  var fecha =getFecha('fecha_ruta');
+  var objRutas=getRutasObj();
+  objRutas.deleteRutasDeCentral(fecha.getFullYear(),fecha.getMonth(), "clac", function(){
+    console.log('DeleteRutas:OK');
+  }, function(e){
+    console.log('DeleteRutas:ERROR');
+    console.log(e);
+  });
+}
+
+function SaveRutas(){
+  var objRutas=getRutasObj();
+  var dis=this;
+  objRutas.saveDataInBD(function(){
+    console.log("SaveRutas:OK");
+  }, function(){
+    console.log("SaveRutas:ERROR");
+  });
+}
+
+function  GetRutasFromBD(){
+  var fecha= getFecha('fecha_ruta');
+  var objRutas=getRutasObj();
+  document.rutas=objRutas;
+  var dis=this;
+  objRutas.getDataFromBD(fecha.getFullYear(), fecha.getMonth(), function(data){
+    console.log('GetRutasFromBD:OK');
+    console.log(data);
+  }, function(e){
+    console.log('GetRutasFromBD:ERROR');
+  });
+}
+
+function getNemosObj(){
+  if (typeof document.nemos=="undefined"){
+    console.log("Creando objeto centrales");
+    document.nemos=new Nemos(bd);
+  }
+  return document.nemos;
+}
+
+function AgregaNemo(){
+  var dis=this;
+  getNemosObj().addNemo('CLAC', 'CRISTIANCITO', function(){
+    console.log("AgregaNemo:OK");
+  }, function(e){
+    console.log("AgregaNemo:ERROR");
+    console.log(e);
+  });
+}
+
+function DeleteNemo(){
+  var dis=this;
+  getNemosObj().deleteNemo('CLAC', function(){
+    console.log('DeleteNemo:OK: codigo=CLAC');
+  }, function(e){
+    console.log('DeleteNemo:ERROR');
+  });
+}
+
+function UpdateNemo(){
+  getNemosObj().updateNemo('CLAC', 'cristiancito luis', function(){
+    console.log('UpdateNemo:OK: codigo=CLAC');
+  }, function(e){
+    console.log('UpdateNemo:ERROR');
+    console.log(e);
+  });
+}
+
+function GetNemos(){
+  getNemosObj().getNemosFromBD(function(){
+    console.log('GetNemos:OK');
+    console.log(getNemosObj().nemos);
+  }, function(e){
+    console.log('GetNemos:ERROR');
+    console.log(e);
+  });
+}
+function SaveNemos(){
+  getNemosObj().saveNemos(function(){
+    console.log('SaveNemos:OK');
+  }, function(e){
+    console.log("SaveNemos:ERROR");
+    console.log(e);
+  });
+}
+function DeleteNemos(){
+  getNemosObj().deleteNemos(function(){
+    console.log('DeleteNemos:OK');
+  }, function(e){
+    console.log('DeleteNemos:ERROR');
+    console.log(e);
+  });
+}
+
+function CargaNemos(){
+  var x = document.getElementById("ArchivoNemos");
+  var archivo = x.files[0];
+  if (archivo){
+    var lector = new FileReader();
+    lector.onload = function(e) {
+      var contenido = e.target.result;
+      var nemos = getNemosObj().getNemosFromFile(contenido);
+      console.log('CargaNemos:OK');
+      console.log('Número de Errores:'+getNemosObj().errores.length);
+      console.log(getNemosObj().errores);
+      console.log(nemos);
+    }
+    lector.readAsText(archivo);
+  }
+};
+
+function getCentralObj(){
+  if (typeof document.centrales=="undefined"){
+    console.log("Creando objeto centrales");
+    document.centrales=new Centrales(bd);
+  }
+  return document.centrales;
+}
+
+function getCentrales(){
+  var centrales = getCentralObj();
+  centrales.getCentrales(function(data){
+    console.log('getCentrales:OK');
+    console.log(data);
+  }, function(e){
+    console.log('getCentrales:ERROR');
+    log(e);
+  });
+}
+
+function AddCentral(){
+    var centrales = getCentralObj();
+    centrales.addCentral("clac", "Central CLAC", "clac", "central de prueba",function(){
+      console.log('AddCentral: OK');
+    }, function(e){
+      console.log('AddCentral: ERROR');
+      console.log(e);
+    });
+}
+
+function DelCentral(){
+  var centrales = getCentralObj();
+  centrales.deleteCentral("clac", function(){
+    console.log('DelCentral:OK');
+  }, function(e){
+    console.log('DelCentral:ERROR');
+    log(e);
+  })
+}
+function UpdateCentral(){
+  var centrales = getCentralObj();
+  centrales.updateCentral("clac", "CENTRAL CLAC", "CLAC", "CENTRAL DE PRUEBA",function(){
+    console.log('UpdateCentral: OK');
+  }, function(e){
+    console.log('UpdateCentral: ERROR');
+    console.log(e);
+  });
+}
+
+
+function getErlangsObj(){
+  if (typeof document.erlangs=="undefined"){
+    console.log("Creando objeto erlangs");
+    document.erlangs=new Erlangs(bd);
+  }
+  return document.erlangs;
+}
+function CargaErlangs(){
+  var x = document.getElementById("ArchivoErlangs");
+  var archivo = x.files[0];
+  if (archivo){
+    var lector = new FileReader();
+    lector.onload = function(e) {
+      var contenido = e.target.result;
+      var erlang=getErlangsObj();
+      var dataErlang = erlang.getErlangsFromFile(contenido);
+      console.log('CargaErlangs:OK');
+      console.log('Número de Errores:'+errores.length);
+      console.log(errores);
+      console.log('Número de Warnings:'+warnings.length);
+      console.log(warnings);
+      console.log('Número de registros:'+erlang.erlangs.length);
+      console.log(erlang.erlangs);
+
+    }
+    lector.readAsText(archivo);
+  }
+}
+
+function saveErlangs(){
+  var erlang=getErlangsObj();
+  erlang.saveErlangs(function(){
+    console.log("saveErlangs:OK");
+  }, function(e){
+    console.log("saveErlangs:ERROR");
+    console.log(erlang.erlangs);
+  });
+}
+
+function deleteErlangs(){
+  var erlang=getErlangsObj();
+  erlang.deleteErlangs(function(){
+    console.log("deleteErlangs:OK");
+  }, function(e){
+    console.log("deleteErlangs:ERROR");
+    console.log(erlang.erlangs);
+  });
+}
+
+function AddErlang(){
+  var erlang=getErlangsObj();
+  erlang.addErlang(8000, 25, function(){
+    console.log("AddErlang:OK");
+    console.log(erlang.erlangs);
+  }, function(e){
+    console.log("AddErlang:ERROR");
+    console.log(e);
+  });
+}
+
+function DelErlang(){
+  var erlang=getErlangsObj();
+  erlang.deleteErlang(8000, function(){
+    console.log("DelErlang:OK");
+    console.log(erlang.erlangs);
+  }, function(e){
+    console.log("DelErlang:ERROR");
+    console.log(e);
+  });
+}
+
+function UpdateErlang(){
+  var erlang=getErlangsObj();
+  erlang.updateErlang(8000, 50, function(){
+    console.log("UpdateErlang:OK");
+    console.log(erlang.erlangs);
+  }, function(e){
+    console.log("UpdateErlang:ERROR");
+    console.log(e);
+  });
+}
+
+function getErlangs(){
+  var erlang=getErlangsObj();
+  erlang.getErlangsFromBD( function(){
+    console.log("getErlangs:OK");
+    console.log(erlang.erlangs);
+  }, function(e){
+    console.log("AddErlang:ERROR");
+    console.log(e);
+  });
+}
+function GetUsers(){
+  var users=new Usuarios(bd);
+  users.getUsers(function(data){
+    console.log(data);
+  }, function(e){
+    console.log(e);
+  });
+}
+function isSingedIn(){
+  var users=new Usuarios(bd);
+  users.isUserSigned();
+}
+
+function ReestablecerPwd(){
+  var users=new Usuarios(bd);
+  users.userResetPassword("cardiles68@gmail.com",function(){
+    console.log('ReestablecerPwd:OK');
+  }, function(e){
+    console.log('ReestablecerPwd:ERROR');
+    console.log(e);
+  });
+}
+
+function Salir(){
+  var users=new Usuarios(bd);
+  users.userSignOut();
+}
+
+function ValidaUsuario(){
+  var users=new Usuarios(bd);
+  users.userSignIn("cardiles68@gmail.com", "ecaal1998", function(correo){
+    console.log("ValidaUsuario:ok"+correo);
+  }, function(correo, error, msg){
+    console.log("ValidaUsuario:error");
+    console.log(correo);
+    console.log(error);
+    console.log(msg);
+  });
+}
+function AddUser(){
+  var users=new Usuarios(bd);
+  users.addUser("cardiles68@gmail.com", '111111', "CRISTIAN", true, true, true, function(){
+    console.log("AddUser:ok");
+  }, function(e){
+    console.log("AddUser:Error");
+    console.log(e.cod);
+    console.log(e.msg);
+  });
+}
+
+function getFecha(idDT){
+  var dt = document.getElementById(idDT);
+  var arrFecha= dt.value.split('-');
+  var Fecha = new Date(arrFecha[0], arrFecha[1], arrFecha[2]);
+  return Fecha;
+}
+function getFechaConMesAnterior(fecha, meses){
+  var aux = new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate());
+  aux.setMonth(aux.getMonth()-meses);
+  return aux;
+}
+</script>
+</body>
+</html>

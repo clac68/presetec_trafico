@@ -1,0 +1,12 @@
+div.ventana_puntos_codigo {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  width:100%;
+  background-color: rgba(182, 154, 132, 0.6);
+  border: solid red;
+  overflow: auto;
+}
+div.ventana_puntos_codigo label{
+  color:'blue';
+  font-size: 150%;
+}

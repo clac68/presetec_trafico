@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="sp" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Sistema Tráfico Presetec</title>
+    <script src="/js/w3.js"></script>
+    <link rel="stylesheet" href="/css/menu_horizontal.css">
+    <link rel="stylesheet" href="/css/clac_style.css">
+    <link rel="stylesheet" href="/css/contenedor.css">
+
+    <style media="screen">
+      nav {
+        width: auto;
+      }
+      article{
+        width:auto;
+      }
+      iframe {
+        width:100%;
+      }
+    </style>
+  </head>
+  <body>
+
+
+        <div class="container">
+        <header>
+         <h1 id="encabezado"  class="contenedor">Reportes Presetec</h1>
+
+        </header>
+
+        <nav>
+          <h1>Hola</h1>
+            <fieldset id='rm_fs_fecha'>
+              <legend>Fecha del reporte</legend>
+              <input id='rm_fecha' type="date" name="" value="">
+            </fieldset>
+        </nav>
+
+        <article>
+
+            <div id='contenedor_informacion' class=""></div>
+            <iframe id='iframe_informacion' src='/html/dev/ventana_bienvenida.html' width="" height=""></iframe>
+            <div id='contenedor_menu_horizontal' class=""></div>
+        </article>
+
+
+    <script type="text/javascript">
+
+      w3.includeHTML(function(){
+        console.log('HTML cargado');;
+      });
+    </script>
+  </body>
+</html>

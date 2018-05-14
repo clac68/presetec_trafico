@@ -1,0 +1,81 @@
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+
+    <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+    <script src="/js/dev/clases_base/bd.js"></script>
+    <script src="/js/dev/mantenedores/mantenedor_nemos.js"></script>
+    <script src="/js/dev/clases_base/nemos.js"></script>
+    <script src="/js/dev/clases_base/Tabla.js"></script>
+    <script src="/js/utiles.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="/css/clac_style.css">
+
+
+    <title></title>
+  </head>
+  <body>
+    <fieldset>
+      <legend>Mantendedor de nemos</legend>
+      <select id='cbnemos' class="" name=""></select>
+
+      </select>
+      <br>
+      <p id='mensaje_nemos'></p>
+      <br>
+      <button id='btnAddnemo' type="button" name="button">Agregar</button>
+      <button id='btnUpdatenemo' type="button" name="button">Actualizar</button>
+      <button id='btnDeletenemo' type="button" name="button">Eliminar</button>
+      <button id='btnUploadnemo' type="button" name="button">Cargar Archivo</button>
+      <div id ='contenedor_tabla_nemo' class="">
+    </fieldset>
+    <fieldset id='fsAccion'>
+      <legend id=legendAccion>Cambiar</legend>
+      <label for="inputCodenemo" >Valor</label>
+      <input id='inputCodenemo' type="text" name="" value="">
+      <label for="inputValornemo">nemo</label>
+      <input id='inputValornemo' type="text" name="" value="">
+      <button id='btnAccionnemo' type="button" name="button">Proceder</button>
+    </fieldset>
+    <fieldset id='fsCarganemo'>
+      <legend>Selecciona el archivo a cargar.</legend>
+      <input id='filenemo' type="file" name="" value="">
+      <button id='btnCargarArchivonemo' type="button" name="button">Cargar en BD</button>
+      <div id ='contenedor_tabla_nemos' class=""></div>
+
+    </fieldset>
+  </body>
+</html>
+
+<script type="text/javascript">
+
+  window.onload=function(){
+    console.log('inicio');
+    var config=getConfignemo();
+    console.log(config);
+    var mantenedornemos=new Mantenedornemos(bd, config);
+  }
+
+  function getConfignemo(){
+    var config ={};
+    config.cbnemos=document.getElementById('cbnemos');
+    config.msg=document.getElementById('mensaje_nemos');
+    config.contenedorTablanemo=document.getElementById('contenedor_tabla_nemo');
+    config.btnAddnemo=document.getElementById('btnAddnemo');
+    config.btnUpdatenemo=document.getElementById('btnUpdatenemo');
+    config.btnDeletenemo=document.getElementById('btnDeletenemo');
+    config.btnUploadnemo=document.getElementById('btnUploadnemo');
+    config.inputCodenemo=document.getElementById('inputCodenemo');
+    config.inputValornemo=document.getElementById('inputValornemo');
+    config.btnAccionnemo=document.getElementById('btnAccionnemo');
+    config.filenemo=document.getElementById('filenemo');
+    config.contenedorTablanemos=document.getElementById('contenedor_tabla_nemos');
+    config.fsAccion=document.getElementById('fsAccion');
+    config.fsLegendaAccion=document.getElementById('legendAccion');
+    config.fsCarganemo=document.getElementById('fsCarganemo');
+    config.btnCargarArchivonemo=document.getElementById('btnCargarArchivonemo');
+
+    return config;
+  }
+</script>

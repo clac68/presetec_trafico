@@ -1,0 +1,10 @@
+div.ventana_ayuda {
+  width:100%;
+}
+.ventana_ayuda div, iframe{
+  width: 100%;
+}
+
+div.ventana_ayuda iframe{
+  width:100%;
+}

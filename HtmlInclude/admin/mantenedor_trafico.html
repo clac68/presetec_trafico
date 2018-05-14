@@ -1,0 +1,38 @@
+<fieldset id="fsMantenedorTrafico">
+  <legend align="left"  class="nombre_seleccion">Mantenedor de Tráfico</legend>
+
+  <input type="file" class="input" id="ArchivoTrafico" multiple>
+  <br>
+  <label class="label">Errores</label>
+  <select id="cbTraficoErrores" class="combobox"></select>
+  <br>
+  <label class="label">Warnings</label>
+  <select id="cbTraficoWarnings" class="combobox"></select>
+  <p id="mensaje_mantenedor_trafico"></p>
+  <progress id="mantenedor_trafico_barra_progreso" value="0" max="100"></progress>
+  <br>
+  <br>
+  <fieldset>
+    <legend align="left"  class="nombre_seleccion">Datos recuperados de los archivos de Tráfico </legend>
+    <br>
+
+    <label class="label">Archivo</label>
+    <select id="cbTraficoArchivo" class="combobox"></select>
+
+    <label class="label">Fechas de la Ruta</label>
+    <select id="cbTraficoFecha" class="combobox"></select>
+
+    <label class="label">Centrales</label>
+    <select id="cbTraficoCentral" class="combobox"></select>
+
+    <label class="label">Rutas</label>
+    <select id="cbTraficoRuta" class="combobox"></select>
+
+    <button id="btncargaTrafico" class="button" >Cargar en Base de Datos</button>
+    <p id="mensaje_mantenedor_trafico_carga"></p>
+    <progress id="mantenedor_trafico_barra_progreso_carga" value="0" max="100"></progress>
+    <table id="tbtraficoRuta"></table>
+
+  </fieldset>
+
+</fieldset>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+
+<input type="file" id="file-input" multiple />
+
+<progress id="barra_progreso" value="0" max="100">
+<h3>Contenido del archivo:</h3>
+<pre id="contenido-archivo"></pre>
+<script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+<script src="/js/cargadatos.js"></script>
+<script>
+function leerArchivo(e) {
+  var bProgreso = document.getElementById("barra_progreso");
+  bProgreso.value=0;
+  bProgreso.max=e.target.files.length;
+  console.log("leerArchivo: n° de archivos" + e.target.files.length);
+  for(var i=0; i<e.target.files.length;i++){
+      var archivo = e.target.files[i];
+      console.log("leerArchivo: archivo:" + archivo.name);
+      if (archivo){
+        var lector = new FileReader();
+        lector.onload = function(e) {
+          var contenido = e.target.result;
+          console.log("leerArchivo: Cargando archivo: Fecha:" + new Date());
+          DataCarga.cargaHtml(contenido);
+            var bProgreso = document.getElementById("barra_progreso");
+            bProgreso.value++;
+        }
+        lector.readAsText(archivo);
+      }
+  }
+}
+
+  /*
+  e.target.files.forEach(function(){
+    var archivo = this;
+    console.log("leerArchivo: archivo:" + archivo);
+    if (archivo){
+      var lector = new FileReader();
+      lector.onload = function(e) {
+        var contenido = e.target.result;
+        console.log("leerArchivo: Cargando archivo: Fecha:" + new Date());
+        DataCarga.cargaHtml(contenido);
+      }
+      lector.readAsText(archivo);
+    }
+  });
+}  */
+  //var archivo = e.target.files[0];
+/*
+
+  if (!archivo) {
+    return;
+  }
+  var lector = new FileReader();
+  lector.onload = function(e) {
+    var contenido = e.target.result;
+
+
+    //DataCarga.cargaHtml(contenido);
+  };
+  */
+
+
+
+document.getElementById('file-input')
+  .addEventListener('change', leerArchivo, false);
+</script>
+
+
+
+</body>
+</html>

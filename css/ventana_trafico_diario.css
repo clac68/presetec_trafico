@@ -1,0 +1,52 @@
+
+
+div.ventana {
+   width: 80%;
+   height:30em;
+   border: solid red;
+   position: absolute;
+   text-align: center;
+   top: 100px;
+   left: 25px;
+   background-color: rgba(182, 154, 132, 1);
+  }
+.titulo_ventana {
+  background-color: blue;
+  color: white;
+  font-size: 150%;
+  cursor: pointer;
+  /*Deshabilitar selección de texto*/
+  -moz-user-select: none;     /* Mozilla *  /
+  -khtml-user-select: none;   /* Chrome */
+  -o-user-select: none;       /* Opera */
+}
+label.ventana {
+  background-color: blue;
+  color:'red';
+  font-size: 130%;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  width:100%;
+  display: inline;
+}
+  div.ventana_chica {
+     width: 20px;
+     height: 20px;
+     border: none;
+     position: relative;
+     float :right;
+     top: 0px;
+
+     background-color: rgba(250, 255, 100, 1);
+     cursor: pointer;
+     /*Deshabilitar selección de texto*/
+     -moz-user-select: none;     /* Mozilla */
+     -khtml-user-select: none;   /* Chrome */
+     -o-user-select: none;       /* Opera */
+  }
+
+  div.ventana_chica img {
+    width: 100%;
+     height: 100%;
+     padding-top: 0px;
+  }

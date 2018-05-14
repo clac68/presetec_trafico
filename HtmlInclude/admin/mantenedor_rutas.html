@@ -1,0 +1,56 @@
+<fieldset id="fsMantenedorRutas" class="fieldset.mantenedor">
+  <legend align="left"  class="nombre_seleccion">Mantenedor de Rutas rescatadas desde las centrales</legend>
+  <label class="label">Selecciona mes</label>
+  <input type="date" id="fecha_carga_rutas">
+  <label class="label">Centrales</label>
+  <select id="cbcentralrutas" class="combobox"></select>
+  <label class="label">Rutas cargadas</label>
+  <select id="cbrutasdecentral" class="combobox"></select>
+  <button id="btneliminarrutasdecentral">Eliminar Rutas de central selecionada</button>
+  <fieldset>
+    <legend align="left"  class="nombre_seleccion">Datos de la ruta seleccionada</legend>
+
+    <label class="label">Área</label>
+    <input id="ruta_area" type="text" class="input">
+
+    <label class="label">Circuitos</label>
+    <input id="ruta_circuitos" type="text" class="input">
+
+    <label class="label">Dirección</label>
+    <input id="ruta_direccion" type="text" class="input">
+
+    <label class="label">Información</label>
+    <input id="ruta_informacion" type="text" class="input">
+
+    <label class="label">Nemo</label>
+    <input id="ruta_nemo" type="text" class="input">
+
+    <label class="label">Punto Código Destino</label>
+    <input id="ruta_pcd" type="text" class="input">
+
+    <label class="label">Punto Código Origen</label>
+    <input id="ruta_pco" type="text" class="input">
+
+    <label class="label">Señalización</label>
+    <input id="ruta_senalizacion" type="text" class="input">
+
+    <label class="label">Sistema</label>
+    <input id="ruta_sistema" type="text" class="input">
+
+    <label class="label">Tipo</label>
+    <input id="ruta_tipo" type="text" class="input">
+
+  </fieldset>
+  <p id="mensaje_mantenedor_rutas"></p>
+  <fieldset>
+    <legend align="left"  class="nombre_seleccion">Carga archivos de rutas de cada central</legend>
+    <label class="label">Selecciona la central</label>
+    <select id="cbcentralrutasacargar" class="combobox"></select>
+    <input type="file" class="input" id="ArchivoRutadeCentral"><br>
+    <p id="mensaje_mantenedor_carga_rutas"></p>
+    <label class="label">errores detectados</label>
+    <select id="cberroresrutas" class="combobox"></select>
+
+
+  </fieldset>
+</fieldset>

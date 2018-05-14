@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="/js/w3.js"></script>
+  <script src="/js/manejo_reportes1.js"></script>
+  <script src="/js/DataBD.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+</head>
+<body >
+  <div w3-include-html="/HtmlInclude/menu.html"></div>
+  <div w3-include-html="/HtmlInclude/contenedor_grafico1.html"></div>
+  <script>
+  w3.includeHTML(htmlCargado);
+
+  function htmlCargado(){
+    var arrCentral = new Array();
+        document.getElementById("fsCampos").style.visibility = "hidden"
+        ManejoReporte.setcbCentral(document.getElementById("central"));
+        ManejoReporte.setcbRuta(document.getElementById("ruta"));
+        ManejoReporte.setGrafico(document.getElementById("myChart"));
+        ManejoReporte.setOpcionesCampo(document.campos.radios);
+        console.log("html cargado:" + document.getElementById("central"));
+        ManejoReporte.IniciaReporteHtml();
+        arrCentral[0] = new Central("SS_MAIP","Central Maipú");
+        arrCentral[1] = new Central("SS_STGO","Central Stgo");
+        arrCentral[2] = new Central("SS_CONCE","Central Concepción");
+        arrCentral[3] = new Central("SS_VINA","Central Viña");
+        arrCentral[4] = new Central("SS_SERE","Central La Serena");
+        arrCentral[5] = new Central("SS_PARE","Central Pta Arenas");
+        arrCentral[6] = new Central("SS_ANTO","Central Antofagasta");
+        arrCentral.forEach(function(central){
+          console.log("central="+central.getRutas());
+          for(i=0;i<30;i++){
+            var ruta = new Ruta(central.getId(), "ruta"+i, "descripción ruta " + i, "S7", "TANDEM");
+            central.getRutas()[i] = ruta;
+          }
+        });
+        console.log("arrCentral="+arrCentral);
+        ManejoReporte.DisplayEltosSeleccion(arrCentral);
+  }
+
+  function getDatos(){
+    var arrTraficoXHora;
+
+    console.log("getDatos");
+    cbCentral = document.getElementById("central");
+    cbRuta = document.getElementById("ruta");
+    fecha = document.getElementById("fecha");
+    central = cbCentral.options[cbCentral.selectedIndex];
+    ruta = cbRuta.options[cbRuta.selectedIndex];
+    arrTraficoXHora = getTraficoXHoraPrueba(central, ruta);
+    document.getElementById("fsCampos").style.visibility = "visible"
+    ManejoReporte.DisplayDatosXHora(arrTraficoXHora);
+  }
+  function getTraficoXHoraPrueba(central, ruta){
+    var arrayTraficoHora = new Array();
+    var i;
+    for (i=0;i<24;i++){
+      arrayTraficoHora[i]=new DataTraficoXHora(central, ruta,"2018-01-01", i, 200, 200, Math.random()*300, Math.random()*10, Math.random()*3,Math.random()*100, Math.random()*20, Math.random()**200, Math.random()*2, Math.random()*4, Math.random()*5, Math.random()*3, Math.random()*2, Math.random()*10, Math.random()*4);
+    }
+    return arrayTraficoHora;
+  }
+  </script>
+</body>
+</html>

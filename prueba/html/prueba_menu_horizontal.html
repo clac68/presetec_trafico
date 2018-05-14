@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <script src="/js/dev/clases_base/menu_horizontal.js"></script>
+    <script src="/js/utiles.js"></script>
+    <link rel="stylesheet" href="/css/menu_horizontal.css">
+    <link rel="stylesheet" href="/css/clac_style.css">
+    <title></title>
+  </head>
+  <body>
+
+    <div id='cont_menu' class="">
+      <div id='cont_opciones' class="">
+
+    </div>
+    <button type="button" name="button" onclick="myFunction()">Cambia Menú</button>
+    <script type="text/javascript">
+      var cont=document.getElementById('cont_menu');
+      var dataMenu={'item1':{'hola':{id:1, selected:true},'chao':{id:2, selected:true}} ,'item2':{'hola':{id:1},'chao':{id:2}}}
+      document.menuH=new MenuHorizontal(cont, dataMenu, function(id){
+        console.log(id);
+      });
+      var cont_opciones=document.getElementById('cont_opciones');
+      AddRadioButton(cont_opciones, 'grupo1', 'clac', 'Hola');
+      AddRadioButton(cont_opciones, 'grupo1', 'clac', 'Clac');
+      AddRadioButton(cont_opciones, 'grupo1', 'clac', 'Chao');
+      function myFunction(){
+        document.menuH.click();
+      }
+    </script>
+  </body>
+</html>

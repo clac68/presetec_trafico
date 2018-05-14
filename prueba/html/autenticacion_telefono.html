@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+  <script src="/js/w3.js"></script>
+
+</head>
+<body>
+  <input type="text"></input>
+  <form id="contenedor-recapctcha"></form>
+  <button id="btnValida" onclick="ValidaUsuario()">Validar Usuario</button>
+
+<script>
+
+
+function ValidaUsuario(){
+  var phoneNumber = getPhoneNumberFromUserInput();
+  var appVerifier = window.recaptchaVerifier;
+  firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+    .then(function (confirmationResult) {
+      console.log("OK");
+      // SMS sent. Prompt user to type the code from the message, then sign the
+      // user in with confirmationResult.confirm(code).
+      window.confirmationResult = confirmationResult;
+    }).catch(function (error) {
+      // Error; SMS not sent
+      // ...
+      console.log("ERROR"+error);
+    });
+}
+function getPhoneNumberFromUserInput(){
+  return "+56998244687";
+}
+
+Init();
+window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('contenedor-recapctcha');
+
+function Init(){
+  if (!firebase.apps.length) {
+    console.log("inciando BD Firebase. clac");
+    var config = {
+      apiKey: "AIzaSyBoosEXeXS9Yk_8zPseFwplT7DD8sJTgZ4",
+      authDomain: "trafico-bca90.firebaseapp.com",
+      databaseURL: "https://trafico-bca90.firebaseio.com",
+      projectId: "trafico-bca90",
+      storageBucket: "trafico-bca90.appspot.com",
+      messagingSenderId: "256756269027"
+    };
+    firebase.initializeApp(config);
+  }
+  firebase.auth().languageCode = 'it';
+}
+</script>
+</body>
+</html>

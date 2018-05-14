@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Recupera y muestra los datos </h1>
+<h2>datos</h2>
+<h1 id='estado_consulta'></h1>
+<button onclick="ConsultDatos()">Consulta</button>
+<button onclick="GraficaDatos()">Grafica</button>
+<script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+<script src="/js/getData.js"></script>
+<script>
+function ConsultDatos(){
+  libgetData.getDataXHora(document.getElementById("estado_consulta"), "SS_MAIP", 'ECOL1XSBSTGO002', "2017", "11", "1");
+}
+function GraficaDatos(){
+  libgetData.graficoxHora("","","");
+}
+  libgetData.iniciaFirebase();
+  
+
+
+</script>
+
+
+
+</body>
+</html>

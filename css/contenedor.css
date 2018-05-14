@@ -1,0 +1,31 @@
+
+div.container {
+    width: 100%;
+    border: 1px solid gray;
+    background-color: rgba(182, 154, 132, 1);
+}
+
+header, footer {
+    padding: 1em;
+    color: white;
+    background-color: blue;
+    clear: left;
+    text-align: center;
+}
+
+nav {
+    float: left;
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 1em;
+    background-color: rgba(182, 154, 132, 0.6);
+}
+
+article {
+  width: auto;
+    border-left: 1px solid gray;
+    padding: 1em;
+    overflow: hidden;
+    background-color: rgba(182, 154, 132, 0.6);
+}

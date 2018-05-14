@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <script src="/js/dev/clases_base/ventana_carga_datos.js"></script>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <label>Checkbox1
+      <input id='cb1' type="checkbox" name="clac" value="">
+    </label>
+    <label>Checkbox2
+      <input type="checkbox" name="clac" value="">
+    </label>
+    <label>Checkbox3
+      <input type="checkbox" name="clac" value="">
+    </label>
+    <progress value="0" max="100">0%</progress>
+    <button type="button" name="button" onclick='Cambia()'>Click me!</button>
+    <script type="text/javascript">
+      var vent=new VentanaCargaDatos(document, function(){
+        alert('Terminó el proceso de carga');
+      });
+      function Cambia(){
+        var x=document.getElementById('cb1');
+        x.checked=true;
+      }
+    </script>
+  </body>
+</html>

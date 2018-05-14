@@ -1,0 +1,82 @@
+  <!DOCTYPE html>
+<html lang="sp" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+
+    <script src="/js/dev/clases_base/bd.js"></script>
+    <script src="/js/dev/clases_base/centrales.js"></script>
+    <script src="/js/dev/mantenedores/mantenedor_central.js"></script>
+    <script src="/js/dev/clases_base/Tabla.js"></script>
+    <script src="/js/utiles.js"></script>
+    <link rel="stylesheet" href="/css/clac_style.css">
+  </head>
+  <body>
+    <fieldset id="fsMantenedorCentral">
+      <legend align="left" class="nombre_seleccion">Mantenedor de centrales</legend>
+      <label class="label">Centrales
+        <select id="cbcentral" class="combobox"></select>
+      </label>
+      <div id='contenedor_tabla_central' class="">
+        <p id='info_accion_central'></p>
+      </div>
+      <br>
+      <button id="btnAgregaCentral" class="button" >Agregar</button>
+      <button id="btnEliminaCentral" class="button">Eliminar</button>
+      <button id="btnActualizaCentral" class="button">Actualizar</button>
+      <br>
+      <br>
+      <fieldset id='contenedor_accion_central'>
+        <legend id='legenda_accion_central'></legend>
+        <label class="label">Código
+          <input id="actionCodCentral" type="text" class="input">
+        </label>
+        <br>
+        <label class="label">Nombre
+          <input id="actionNombreCentral" type="text" class="input">
+        </label>
+        <br>
+        <label class="label">Descripción
+          <input id="actionDescCentral" type="text" class="input">
+        </label>
+        <br>
+        <label class="label">Nombre Corto
+          <input id="actionNombreCortoCentral" type="text" class="input">
+        </label>
+        <br>
+        <button id='btnAccionCentral' type="button" name="button">Acción</button>
+      </fieldset>
+    </fieldset>
+
+    <script type="text/javascript">
+
+    window.onload=function(){
+      console.log('inicio');
+      var config=getConfig();
+      console.log(config);
+      var mantenedorCentrales=new MantendedorCentrales(bd, config);
+    }
+
+    function getConfig(){
+      var config={};
+      console.log(document.getElementById('cbcentral'));
+      config.cb=document.getElementById('cbcentral');
+
+      config.addShortName=document.getElementById('actionNombreCortoCentral');
+      config.addCodigoCentral=document.getElementById('actionCodCentral');
+      config.addNombre=document.getElementById('actionNombreCentral');
+      config.addDescripcion=document.getElementById('actionDescCentral');
+      config.btnAgregar=document.getElementById('btnAgregaCentral');
+      config.btnEliminar=document.getElementById('btnEliminaCentral');
+      config.btnActualizar=document.getElementById('btnActualizaCentral');
+      config.btnAccion=document.getElementById('btnAccionCentral');
+      config.contenedorTabla=document.getElementById('contenedor_tabla_central');
+      config.infoAccion=document.getElementById('info_accion_central');
+      config.contenedorAccion=document.getElementById('contenedor_accion_central');
+      config.legend=document.getElementById('legenda_accion_central');
+      return config;
+    }
+    </script>
+  </body>
+</html>

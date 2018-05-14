@@ -1,0 +1,27 @@
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id='miVentana' style='position: fixed; width: 600px; height: 190px; top: 0; left: 0; font-family:Verdana, Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; border: #333333 3px solid; background-color: #FAFAFA; color: #000000; display:none;'>
+      <label>Hola</label>
+    </div>
+    <button type="button"  onclick='mostrarVentana()'>Mostrar</button>
+    <button type="button"  onclick='ocultarVentana()'>Ocultar</button>
+
+    <script type="text/javascript">
+      function mostrarVentana(){
+          var ventana = document.getElementById('miVentana');
+          ventana.style.marginTop = '100px';
+          ventana.style.left = ((document.body.clientWidth-350) / 2);
+          ventana.style.display = 'block';
+      }
+
+      function ocultarVentana(){
+        var ventana = document.getElementById('miVentana');
+        ventana.style.display = 'none';
+      }
+    </script>
+  </body>
+</html>

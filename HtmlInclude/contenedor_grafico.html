@@ -1,0 +1,44 @@
+<div class="container">
+<header>
+ <h1 id="encabezado" class="contenedor">City Gallery</h1>
+ <link rel="stylesheet" href="/css/contenedor.css">
+</header>
+
+<nav>
+  <fieldset >
+    <legend align="center" class="nombre_seleccion">Selecciona los datos solictados</legend>
+    <fieldset>
+      <legend align="left"  class="nombre_seleccion">Central</legend>
+      <select id="central" class="combobox">
+        <option value="maipu">Maipú</option>
+        <option value="santiago">Santiago</option>
+        <option value="otra">Concepción</option>
+      </select>
+    </fieldset>
+    <fieldset>
+      <legend align="left" class="nombre_seleccion">Ruta</legend>
+      <select id="ruta" class="combobox">
+        <option value="ruta1">Ruta1</option>
+        <option value="ruta2">Ruta2</option>
+        <option value="ruta3">Ruta3</option>
+      </select>
+    </fieldset>
+    <fieldset>
+      <legend align="left" class="nombre_seleccion">Fecha</legend>
+      <input id="fecha" type="date"></input>
+    </fieldset>
+    <fieldset >
+      <legend align="left" class="nombre_seleccion"></legend>
+      <button onclick="getDatos()" type="submit" value="submit" align="center">Recupera Datos</button>
+    </fieldset>
+
+  </fieldset>
+</nav>
+
+<article>
+  <canvas id="myChart" width="200" height="100"></canvas>
+
+  <h1>London</h1>
+  <p>London is the capital city of England. It is the most populous city in the  United Kingdom, with a metropolitan area of over 13 million inhabitants.</p>
+  <p>Standing on the River Thames, London has been a major settlement for two millennia, its history going back to its founding by the Romans, who named it Londinium.</p>
+</article>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Reimon. Así de fácil es</h2>
+
+<canvas id="myChart" width="200" height="50"></canvas>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script>
+var ctx = document.getElementById("myChart");
+/*
+var myChart = new Chart(ctx, {
+
+    type: 'bar',
+    data: {
+        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        },{
+
+              label: '# Otra dataset',
+              data: [8, 159, 5, 7, 4, 9],
+        }]
+    },
+    options: {
+      title:{
+        display:true,
+        text: "Titulo"
+      },
+      scales: {
+          yAxes: [{
+              ticks: {
+                  beginAtZero:true
+              }
+          }]
+      }
+    }
+});
+*/
+var labelX = new Array();
+var dataGrafico = new Array();
+for (i=0;i<24;i++){
+  labelX[i] = i;
+  dataGrafico[i] = Math.random()*300;
+}
+MyfunctionGrafico("bar", "titulo prueba", labelX, "numeros", dataGrafico );
+
+function MyfunctionGrafico(tipo, titulo, labelX, labelY,  dataGrafico){
+
+  var Grafico = document.getElementById("myChart");
+  if myChart === "undefined"
+  var myChart = new Chart(Grafico, {
+      //type: 'bar',
+      type: tipo,
+      data: {
+          //labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+          labels: labelX,
+          datasets: [{
+              //label: '# of Votes',
+              label: labelY,
+              //data: [12, 19, 3, 5, 2, 3],
+              data: dataGrafico,
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)'
+              ],
+              borderColor: [
+                  'rgba(255,99,132,1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+        title:{
+          display:true,
+          //text: "Titulo"
+          text: titulo
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+      }
+  });
+}
+</script>
+
+</body>
+</html>

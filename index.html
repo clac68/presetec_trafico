@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+
+<body>
+
+<h1 id="Header">Bienvenido a Clac's world</h1>
+<h2>Enjoy it</h2>
+<h3>version 4</h3>
+
+<div w3-include-HTML="/HtmlInclude/Cargador.html"></div>
+
+<script>
+
+</script>
+<script src="/libs/libTutorial.js"></script>
+<script>
+	var X;
+	var strNombre = "inicio";
+	(function(){
+
+		try{
+				objeto.incrementar();
+				objeto.incrementar();
+				strNombre = "X:" + objeto.getX();
+	}catch(e){
+		strNombre = "Error: " + e;
+	}
+	});
+	objeto.incrementar();
+	strNombre = "X:" + objeto.getX();
+	document.getElementsByTagName("h2")[0].innerHTML = "Nombre=" + strNombre;
+	objeto.DisplayX();
+</script>
+</body>
+<html>

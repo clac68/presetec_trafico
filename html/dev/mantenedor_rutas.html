@@ -1,0 +1,129 @@
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+    <script src="/js/dev/clases_base/bd.js"></script>
+    <script src="/js/dev/mantenedores/mantenedor_rutas.js"></script>
+    <script src="/js/dev/clases_base/rutas.js"></script>
+    <script src="/js/dev/clases_base/centrales.js"></script>
+    <script src="/js/dev/clases_base/nemos.js"></script>
+    <script src="/js/dev/clases_base/Tabla.js"></script>
+    <script src="/js/utiles.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="/css/clac_style.css">
+  </head>
+  <body>
+    <fieldset>
+      <legend>Mantenedor de Rutas</legend>
+      <label for="mr_fecRutas">Seleeciona el mes</label>
+      <input id='mr_fecRutas' type="date" name="" value="" >
+      <p id='mr_msgRutas'>Acá ca el mensaje</p>
+      <fieldset id='mr_fsCentralesRutas'>
+        <legend>Rutas cargadas en la fecha seleccioanda</legend>
+        <label for="mr_cbCentrales">Centrales</label>
+        <select id='mr_cbCentrales' class="" name=""></select>
+        <label for="mr_cbRutas">Rutas</label>
+        <select id='mr_cbRutas' class="" name=""></select>
+        <div id='mr_contenedor_info_ruta' class=""></div>
+        <br>
+        <button id='mr_btnCarga' type="button" name="button">Carga Rutas</button>
+        <button id='mr_btnBorra' type="button" name="button">Elimina Rutas de Central</button>
+        <button id='mr_btnComparaRutas' type="button" name="button">Compara con Mes anterior</button>
+      </fieldset>
+      <fieldset id='mr_carga_rutas'>
+        <legend>Carga Rutas</legend>
+        <label for="mr_cbSelCentral">Selecciona la central</label>
+        <select id='mr_cbSelCentral' class="" name=""></select>
+        <label for="mr_filerutas">Selecciona el archivo a cargar</label>
+        <input id='mr_filerutas' type="file" name="" value="">
+        <br>
+        <fieldset id='mr_resultados_carga'>
+          <legend>Resultado de la carga de datos</legend>
+          <label for="mr_cbSelErroresCargaRutas">Errores</label>
+          <select id='mr_cbSelErroresCargaRutas' class="" name=""></select>
+          <br>
+          <label for="mr_cbSelWarningsCargaRutas">Warnings</label>
+          <select id='mr_cbSelWarningsCargaRutas' class="" name=""></select>
+          <br>
+          <label id='mr_msgCargaRutas'>Acá va el mensaje de carga de las rutas</label>
+          <br>
+          <button id='mr_btn_carga_archivo_en_bd' type="button" name="button">Carga en Base de Datos</button>
+          <br>
+
+        </fieldset>
+
+      </fieldset>
+      <fieldset id='mr_compara_rutas'>
+        <legend>Visualización de Resultados</legend>
+
+        <br>
+        <label >Detalle de Rutas</label><input id='mr_rutas_detalle' type="radio" name="tipo_comparacion" checked>
+        <label >Rutas PRI</label><input id='mr_rutas_pri' type="radio" name="tipo_comparacion" checked>
+        <label >Rutas SIP</label><input id='mr_rutas_sip' type="radio" name="tipo_comparacion" checked>
+        <label >Rutas S7</label><input id='mr_rutas_s7' type="radio" name="tipo_comparacion" checked>
+        <label >Errores S7</label><input id='mr_rutas_errores_s7' type="radio" name="tipo_comparacion">
+        <label >Rutas Agregadas</label><input id='mr_rutas_agregadas' type="radio" name="tipo_comparacion" checked>
+        <label >Rutas Eliminadas</label><input id='mr_rutas_eliminadas' type="radio" name="tipo_comparacion">
+        <label >Cambio de Parámetros</label><input id='mr_rutas_cambio_parametros' type="radio" name="tipo_comparacion">
+        <label >Sin Nemo</label><input id='mr_rutas_sin_nemo' type="radio" name="tipo_comparacion">
+        <br>
+        <label id='mr_msgComparaRutas'></label>
+        <div id='mr_contenedor_tabla_comparacion' class=""></div>
+        <div id="mr_contenedor_tabla_carga" class=""></div>
+      </fieldset>
+    </fieldset>
+
+  <script type="text/javascript">
+
+    window.onload=function(){
+      console.log('inicio');
+      var config=getConfigrutas();
+      console.log(config);
+      var mantRutas = new MantenedorRutas(bd, null, null, config);
+    }
+
+    function getConfigrutas(){
+      var config ={};
+      config.fecha=document.getElementById('mr_fecRutas');
+      config.msg=document.getElementById('mr_msgRutas');
+      config.fsCentralesRutas=document.getElementById('mr_fsCentralesRutas');
+      config.cbCentrales=document.getElementById('mr_cbCentrales');
+      config.cbRutas=document.getElementById('mr_cbRutas');
+      config.contRutas=document.getElementById('mr_contenedor_info_ruta');
+      config.btnCargaRutas=document.getElementById('mr_btnCarga');
+      config.btnBorraRutas=document.getElementById('mr_btnBorra');
+      config.btnComparaRutas=document.getElementById('mr_btnComparaRutas');
+      config.fsCargaRutas=document.getElementById('mr_carga_rutas');
+      config.cbCentralesCarga=document.getElementById('mr_cbSelCentral');
+
+      config.cbErroresCarga=document.getElementById('mr_cbSelErroresCargaRutas');
+      config.cbWarningsCarga=document.getElementById('mr_cbSelWarningsCargaRutas');
+
+      config.fileRutas=document.getElementById('mr_filerutas');
+      config.msgCarga=document.getElementById('mr_msgCargaRutas');
+      config.fsResultadosCarga=document.getElementById('mr_resultados_carga');
+
+      config.btnCargaArchivoEnBD=document.getElementById('mr_btn_carga_archivo_en_bd');
+      config.contCargaRutas=document.getElementById('mr_contenedor_tabla_carga');
+      config.fsComparaRutas=document.getElementById('mr_compara_rutas');
+      config.msgComparaRutas=document.getElementById('mr_msgComparaRutas');
+      config.rbRutasAgregadas=document.getElementById('mr_rutas_agregadas');
+      config.rbRutasEliminadas=document.getElementById('mr_rutas_eliminadas');
+      config.rbRutasDetalle=document.getElementById('mr_rutas_detalle');
+
+      config.rbRutasPRI=document.getElementById('mr_rutas_pri');
+      config.rbRutasSIP=document.getElementById('mr_rutas_sip');
+      config.rbRutasS7=document.getElementById('mr_rutas_s7');
+
+      config.rbRutasCambioParametros=document.getElementById('mr_rutas_cambio_parametros');
+      config.rbRutasErroresS7=document.getElementById('mr_rutas_errores_s7');
+      config.rbRutasSinNemo=document.getElementById('mr_rutas_sin_nemo');
+
+      config.contTablaComparacion=document.getElementById('mr_contenedor_tabla_comparacion');
+      return config;
+    }
+  </script>
+
+    </body>
+</html>

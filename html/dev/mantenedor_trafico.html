@@ -1,0 +1,174 @@
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+    <script src="/js/dev/clases_base/bd.js"></script>
+    <script src="/js/dev/mantenedores/mantenedor_trafico.js"></script>
+    <script src="/js/dev/clases_base/rutas.js"></script>
+    <script src="/js/dev/clases_base/centrales.js"></script>
+    <script src="/js/dev/clases_base/trafico_diario.js"></script>
+    <script src="/js/dev/clases_base/trafico_mensual.js"></script>
+    <script src="/js/dev/clases_base/Tabla.js"></script>
+    <script src="/js/utiles.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="/css/clac_style.css">
+  </head>
+  <body>
+
+    <fieldset>
+      <legend>Mantenedor de Tráfico</legend>
+      <input id='mt_fecha' type="date" name="" value="">
+      <br>
+      <label id='mt_msg'></label>
+      <fieldset id='mt_trafico_bd'>
+        <legend>Tráfico Obtenido desde la Base de Datos</legend>
+        <label for="mt_cb_central">Centrales</label>
+        <select id='mt_cb_central' class="" name=""></select>
+        <label for="mt_cb_ruta">Rutas</label>
+        <select id='mt_cb_ruta' class="" name=""></select>
+        <label for="mt_cb_dia">Días</label>
+        <select id='mt_cb_dia' class="" name=""></select>
+        <br>
+        <fieldset id='mt_fs_trafico_datos_dia'>
+          <legend >Datos del Día</legend>
+          <div id='mt_contenedor_trafico_datos_dia' class=""></div>
+        </fieldset>
+        <fieldset id='mt_fs_trafico_datos_mes'>
+          <legend >Intentos máximos del mes</legend>
+          <div id='mt_contenedor_trafico_datos_mes' class=""></div>
+        </fieldset>
+        <fieldset id='mt_fs_estadistica_trafico_mensual'>
+          <legend>Estadísticas Mensuales</legend>
+          <div id='mt_contenedor_estadistica_trafico_mensual' class=""></div>
+        </fieldset>
+      </fieldset>
+      <fieldset id='mt_fs_acciones'>
+        <button id='mt_boton_cargar_archivo' type="button" name="button">Cargar Archivo</button>
+        <button id='mt_boton_eliminar_trafico_central' type="button" name="button">Eliminar Tráfico de Central</button>
+        <button id='mt_boton_analizar_trafico' type="button" name="button">Analizar Tráfico</button>
+        <button id='mt_boton_generar_estadistica' type="button" name="button">Generar Estadística Mensual</button>
+        <button id='mt_boton_grabar_estadistica' type="button" name="button">Guardar Estadística Mensual</button>
+      </fieldset>
+      <fieldset id='mt_carga_archivo'>
+        <legend>Cargar Archivo de Tráfico</legend>
+        <input id='mt_archivo_trafico' type="file" name="" value="" multiple>
+        <progress id='mt_progreso_carga' value="0" max="100">0%</progress>
+        <br>
+        <label id='mt_msg_carga_archivo'>Acá va el mensaje de carga de archivo</label>
+        <fieldset id='mt_resultado_carga_Archivo'>
+          <legend>Resultado de Carga de Archivos</legend>
+          <fieldset id='mt_fs_resultado_carga_error'>
+            <legend>Errores y Warnigs en los archivos procesados</legend>
+            <label for="mt_cb_errores_archivo">Errores</label>
+            <select id='mt_cb_errores_archivo' class="" name=""></select>
+            <br>
+            <label for="mt_cb_warnings_archivo">Warnings</label>
+            <select id='mt_cb_warnings_archivo' class="" name=""></select>
+          </fieldset>
+          <label id='mt_msg_resultado_Archivo'>Acá va el mensaje del resultado de la carga del archivo</label>
+          <fieldset id='mt_fs_resultado_carga_ok'>
+            <legend>Datos recuperados del procesamiento de los archivos</legend>
+            <label for="mt_cb_fecha_archivo">Fechas</label>
+            <select id='mt_cb_fecha_archivo' class="" name=""></select>
+            <label for="mt_cb_centrales_archivo">Centrales</label>
+            <select id='mt_cb_centrales_archivo' class="" name=""></select>
+            <label for="mt_cb_rutas_archivo">Rutas</label>
+            <select id='mt_cb_rutas_archivo' class="" name=""></select>
+            <label for="mt_cb_dias_archivo">Días</label>
+            <select id='mt_cb_dias_archivo' class="" name=""></select>
+            <button id='mt_btn_cargar_archivo_en_bd' type="button" name="button">Cargar en Base de Datos</button>
+            <progress id='mt_progreso_grabacion_en_bd' value="0" max="100">0%</progress>
+            <br>
+            <label id='mt_msg_resultado_carga_archivo'>Acá va el mensaje del resultado de carga de archivo</label>
+            <fieldset id='mt_fs_resultado_datos_mes'>
+              <legend id='mt_legend_resultado_datos_mes'>Intentos máximos del mes</legend>
+              <div id='mt_contenedor_resultado_datos_mes' class=""></div>
+            </fieldset>
+            <fieldset id='mt_fs_resultado_datos_dia'>
+              <legend id='mt_legend_resultado_datos_dia'>Datos del Día</legend>
+              <div id='mt_contenedor_resultado_datos_dia' class=""></div>
+            </fieldset>
+          </fieldset>
+        </fieldset>
+      </fieldset>
+      <fieldset id='mt_fs_analisis_resultados'>
+        <legend>Análisis de Tráfico</legend>
+        <label >Detalle de Tráfico</label><input id='mt_detalle_trafico' type="radio" name="mt_analisis_trafico" checked>
+        <label >Detalle de Estadísticas</label><input id='mt_detalle_estadisticas' type="radio" name="mt_analisis_trafico" >
+        <label >Rutas sin Tráfico</label><input id='mt_rutas_sin_trafico' type="radio" name="mt_analisis_trafico" >
+
+        <br>
+        <label id='mt_msg_analisis_resultados'>Mensaje de Análisis de Resultados</label>
+        <div id='mt_contenedor_tabla_analisis_resultados' class=""></div>
+      </fieldset>
+    </fieldset>
+  <script type="text/javascript">
+
+    window.onload=function(){
+      console.log('inicio mantenedor trafico');
+      var config=getConfigTrafico();
+      console.log(config);
+      var mantRutas = new MantenedorTrafico(bd, config);
+    }
+    function getConfigTrafico(){
+      var config={};
+      config.fecha=document.getElementById('mt_fecha');
+      config.msg=document.getElementById('mt_msg');
+      config.fsTraficoBD=document.getElementById('mt_trafico_bd');
+      config.cbCentralesBD=document.getElementById('mt_cb_central');
+      config.cbRutasBD=document.getElementById('mt_cb_ruta');
+      config.cbDiasBD=document.getElementById('mt_cb_dia');
+      config.fsTraficoMes=document.getElementById('mt_fs_trafico_datos_mes');
+      config.contTraficoMes=document.getElementById('mt_contenedor_trafico_datos_mes');
+      config.fsTraficoDia=document.getElementById('mt_fs_trafico_datos_dia');
+      config.contTraficoDia=document.getElementById('mt_contenedor_trafico_datos_dia');
+      config.fsEstadisticaMensual=document.getElementById('mt_fs_estadistica_trafico_mensual');
+      config.contEstadisticaMensual=document.getElementById('mt_contenedor_estadistica_trafico_mensual');
+      config.fsAcciones=document.getElementById('mt_fs_acciones');
+      config.btnCargarArchivo=document.getElementById('mt_boton_cargar_archivo');
+      config.btnEliminarTraficoCentral=document.getElementById('mt_boton_eliminar_trafico_central');
+      config.btnAnalizarTrafico=document.getElementById('mt_boton_analizar_trafico');
+      config.btnGenerarEstadisticaMensual=document.getElementById('mt_boton_generar_estadistica');
+      config.btnGrabarEstadisticaMensual=document.getElementById('mt_boton_grabar_estadistica');
+
+      config.fsCargarArchivo=document.getElementById('mt_carga_archivo');
+      config.fileTrafico=document.getElementById('mt_archivo_trafico');
+      config.pbCargaArchivo=document.getElementById('mt_progreso_carga');
+      config.msgCargaArchivo=document.getElementById('mt_msg_carga_archivo');
+      config.fsResultadoCargaArchivo=document.getElementById('mt_resultado_carga_Archivo');
+      config.cbErrores=document.getElementById('mt_cb_errores_archivo');
+      config.cbWarnings=document.getElementById('mt_cb_warnings_archivo');
+      config.msgResultadoArchivo=document.getElementById('mt_msg_resultado_Archivo');
+      config.cbCentralesArchivo=document.getElementById('mt_cb_centrales_archivo');
+      config.cbFechaArchivo=document.getElementById('mt_cb_fecha_archivo');
+      config.cbRutasArchivo=document.getElementById('mt_cb_rutas_archivo');
+      config.cbDiasArchivo=document.getElementById('mt_cb_dias_archivo');
+      config.btnCargaArchivoEnBD=document.getElementById('mt_btn_cargar_archivo_en_bd');
+      config.msgResultadoCargaArchivo=document.getElementById('mt_msg_resultado_carga_archivo');
+      config.fsResultadoDatosMes=document.getElementById('mt_fs_resultado_datos_mes');
+      config.lgResultadoDatosMes=document.getElementById('mt_legend_resultado_datos_mes');
+      config.contResultadoDatosMes=document.getElementById('mt_contenedor_resultado_datos_mes');
+      config.fsResultadoDatosDia=document.getElementById('mt_fs_resultado_datos_dia');
+      config.lgResultadoDatosDia=document.getElementById('mt_legend_resultado_datos_dia');
+      config.contResultadoDatosDia=document.getElementById('mt_contenedor_resultado_datos_dia');
+      config.fsAnalisis=document.getElementById('mt_fs_analisis_resultados');
+      config.rbDetalleTrafico=document.getElementById('mt_detalle_trafico');
+      config.rbRutasSinTrafico=document.getElementById('mt_rutas_sin_trafico');
+      config.rbDetalleEstadisticas=document.getElementById('mt_detalle_estadisticas');
+
+
+      config.msgAnalisis=document.getElementById('mt_msg_analisis_resultados');
+      config.contAnalisis=document.getElementById('mt_contenedor_tabla_analisis_resultados');
+      config.fsCargaArchivoError=document.getElementById('mt_fs_resultado_carga_error');
+      config.fsCargaArchivoOK=document.getElementById('mt_fs_resultado_carga_ok');
+      config.pbSaveInBD=document.getElementById('mt_progreso_grabacion_en_bd');
+
+      return config;
+    }
+  </script>
+
+  </body>
+</html>

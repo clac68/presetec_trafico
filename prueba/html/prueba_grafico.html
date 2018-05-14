@@ -1,0 +1,85 @@
+<html>
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+  <script src="/js/dev/clases_base/graficos.js"></script>
+  <script src="/js/dev/clases_base/Tabla.js"></script>
+  <script src="/js/dev/clases_base/menu.js"></script>
+  <script src="/js/dev/clases_base/ventana_trafico_diario.js"></script>
+  <script src="/js/utiles.js"></script>
+
+  <link rel="stylesheet" href="/css/ventana_trafico_diario.css">
+
+
+</head>
+<body>
+  <ul class='menu'>
+    <li id='menu1'>Menú 1</li>
+    <li id='menu2'>Menú 2</li>
+    <li id='menu3'>Menú 3</li>
+  </ul>
+
+  <img src="/images/siguiente.png" alt="" onclick='clickImg()'>
+  <button onclick="BorraGraficos()">Borrar Graficos</button>
+  <button type="button" name="button" onclick='Avanzar()'>Avanzar</button>
+  <button type="button" name="button" onclick='Retroceder()'>Retroceder</button>
+  <div id='contenedor_graficos'></div>
+
+  </fieldset>
+<script>
+//<link rel="stylesheet" href="/css/clac_style.css">
+  function clickImg(){
+
+  }
+  function Avanzar(){
+    document.graficos.Avanzar();
+  }
+  function Retroceder(){
+    document.graficos.Retroceder();
+  }
+
+  function BorraGraficos(){
+    console.log("BorraGraficos");
+    var div = document.getElementById('contenedor_graficos');
+
+    while (div.firstChild) {
+        div.removeChild(div.firstChild);
+    }
+  }
+
+    var div = document.getElementById('contenedor_graficos');
+    var menu={'Ver Gráfico Diario':1, 'Ver datos de la troncal': 2};
+    document.graficos=new Grafico('apram', div,'Gráfico de prueba', true,true);
+
+    document.graficos.setMenu(menu, function(res){
+      console.log(res);
+    });
+
+    document.graficos.onAvanzar=function(){
+      console.log('Avanzar');
+    };
+    document.graficos.onRetroceder=function(){
+      console.log('Retroceder');
+    };
+    var lbl=[];
+    for (var j=0;j<31;j++){
+      lbl.push("label "+j);
+    }
+    document.graficos.AddLabels(lbl);
+    for(var i=0; i<25;i++){
+      var data=[];
+      for (var j=0;j<31;j++){
+        data.push(Math.random()*100);
+      }
+      document.graficos.AddData(data, "datos "+i, "");
+    }
+    document.graficos.IniciaGrafico();
+    var dataGrafico={titulo: 'OCUPACIÓN', labels:lbl, data:{arr:data, nombre:'dato Troncal'}}
+    var objTitulo={param:'Parámetro', dia:'DIA', valor:'VALOR'}
+    arrData=[];
+    arrData.push({param:'Ocupación Media', dia:1, valor:10});
+    arrData.push({param:'Ocupación Máxima', dia:1, valor:15});
+    var dataTabla={titulo:objTitulo, data:arrData};
+    var ventana=new VentanaTraficoDiario(div, 'Titulo 1', dataGrafico, dataTabla);
+  </script>
+</body>
+</html>

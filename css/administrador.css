@@ -1,0 +1,12 @@
+.validacion_usuario{
+  background-color: #fafafa;
+  margin: 1rem;
+  padding: 1rem;
+  border: 2px solid #ccc;
+   /* IMPORTANTE */
+  text-align: center;
+}
+
+h1, h2 {
+  color:blue;
+}

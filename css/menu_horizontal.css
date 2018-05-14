@@ -1,0 +1,67 @@
+div.menu_horizontal div{
+  margin-top: 0px;
+}
+.menu_horizontal div
+{
+    border: solid 1px #370202;
+    background:#BD0000 url('/images/mb50_3_bg.gif') repeat-x;
+    padding:0px;/*changing its value will give menu margins to its container*/
+    margin-top: 0px;
+    text-align:center;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+.contenedor_menu_horizontal
+{
+    border: solid 1px #370202;
+    background:#BD0000 url('/images/mb50_3_bg.gif') ;
+    padding:0px;/*changing its value will give menu margins to its container*/
+    text-align:center;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+
+.menu_horizontal ul, li
+{
+    margin-top: 0px;
+    display: inline;
+    list-style-type:none;padding:0;margin:0;border:0;background-image:none;
+}
+
+.menu_horizontal label
+{
+    text-align: center;
+    display: inline-block;
+    font: normal 11px Verdana;
+    font-size: 120%;
+    background: #900 url('/images/mb50_3.gif') no-repeat left top;
+    padding: 10px 20px;/*This defines the size of each menu item*/
+    color: white;
+    text-decoration: none;
+    margin-top: 0px;
+}
+
+.menu_horizontal a
+{
+    text-align: center;
+    display: inline-block;
+    font: normal 11px Verdana;
+    font-size: 120%;
+    padding: 10px 20px;/*This defines the size of each menu item*/
+    color: white;
+    text-decoration: none;
+}
+
+.menu_horizontal label.selected
+{
+    background-position: 0% -60px;
+    color: yellow;
+}
+
+.menu_horizontal label:hover:not(.selected)
+{
+    background-position: 0% -60px;
+    color: white;
+}

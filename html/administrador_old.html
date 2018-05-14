@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+  <script src="/js/w3.js"></script>
+  <script src="https://momentjs.com/downloads/moment.js"></script>
+  <script src="/js/trafico_diario.js"></script>
+  <script src="/js/utiles.js"></script>
+  <script src="/js/cargadatos.js"></script>
+  <script src="/js/mantenedor_trafico.js"></script>
+
+</head>
+<body>
+  <fieldset>
+    <legend align="left" class="nombre_seleccion">Seleciona los mantenedores que deseas trabajar</legend>
+  </fieldset>
+    <div w3-include-html="/HtmlInclude/admin/mantenedor_trafico.html"></div>
+<script>
+function SeleccionaMantenedorCentral(){
+  cb = document.getElementsByName("checkMantenedor");
+  for(var i=0; i<cb.length;i++){
+    switch(cb[i].value){
+      case "centrales":
+        DisplayHide(document.getElementById("fsMantenedorCentral"), cb[i].checked);
+        break;
+      case "nemos":
+        DisplayHide(document.getElementById("fsMantenedorNemos"), cb[i].checked);
+        break;
+      case "rutas":
+        DisplayHide(document.getElementById("fsMantenedorRutas"), cb[i].checked);
+        break;
+      case "trafico":
+        DisplayHide(document.getElementById("fsMantenedorTrafico"), cb[i].checked);
+        break;
+      case "erlangs":
+        DisplayHide(document.getElementById("fsMantenedorErlang"), cb[i].checked);
+        break;
+    }
+  }
+}
+
+
+function DisplayHide(obj, display){
+  if (display){
+    obj.style.display="initial";
+    return;
+  }
+  obj.style.display="none";
+}
+w3.includeHTML(function(){
+  AgregaMantenedorTraficoEventListeners();
+});
+
+</script>
+</body>
+</html>

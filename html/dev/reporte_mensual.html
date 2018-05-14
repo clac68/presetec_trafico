@@ -1,0 +1,276 @@
+
+<html lang="sp" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+    <script src="/js/dev/clases_base/bd.js"></script>
+    <script src="/js/dev/mantenedores/reporte_mensual.js"></script>
+    <script src="/js/dev/clases_base/nemos.js"></script>
+    <script src="/js/dev/clases_base/rutas.js"></script>
+    <script src="/js/dev/clases_base/centrales.js"></script>
+    <script src="/js/dev/clases_base/erlangs.js"></script>
+    <script src="/js/dev/clases_base/trafico_diario.js"></script>
+    <script src="/js/dev/clases_base/trafico_mensual.js"></script>
+    <script src="/js/dev/clases_base/Tabla.js"></script>
+    <script src="/js/dev/clases_base/menu.js"></script>
+    <script src="/js/dev/clases_base/menu_horizontal.js"></script>
+    <script src="/js/dev/clases_base/ventana_trafico_diario.js"></script>
+    <script src="/js/dev/clases_base/ventana_datos_trafico_diario.js"></script>
+    <script src="/js/dev/clases_base/ventana_rutas.js"></script>
+    <script src="/js/dev/clases_base/ventana_puntos_codigo.js"></script>
+    <script src="/js/dev/clases_base/ventana_carga_datos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script src="/js/dev/clases_base/graficos.js"></script>
+    <script src="/js/dev/clases_base/ventana_validacion.js"></script>
+    <script src="/js/dev/clases_base/usuarios.js"></script>
+    <script src="/js/utiles.js"></script>
+    <script src="/js/w3.js"></script>
+
+    <link rel="stylesheet" href="/css/clac_style.css" >
+    <link rel="stylesheet" href="/css/contenedor.css" >
+    <link rel="stylesheet" href="/css/radio_button.css" >
+    <link rel="stylesheet" href="/css/checkbox_button.css" >
+    <link rel="stylesheet" href="/css/tabla.css" >
+    <link rel="stylesheet" href="/css/ventana_carga_datos.css" >
+    <link rel="stylesheet" href="/css/menu_horizontal.css" >
+    <link rel="stylesheet" href="/css/menu_mouse.css" >
+    <link rel="stylesheet" href="/css/ventana_ayuda.css" >
+    <link rel="stylesheet" href="/css/ventana_trafico_diario.css" >
+    <link rel="stylesheet" href="/css/administrador.css" >
+
+    <style media="screen">
+      .contenedor_info {
+        width=100%;
+        overflow: auto;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div id='rm_validacion_usuario' class="validacion_usuario">
+      <h1>Bienvenido al sistema de Tráfico Presetec</h1>
+      <h2>Por favor, ingresa tu correo y contraseña</h2>
+      <div id='adm_validacion' w3-include-html="/html/dev/ventana_validacion.html"></div>
+    </div>
+    <div id='rm_reporte'class="container" style='display:none'>
+      <header>
+       <h1 id="encabezado" class="contenedor">Reportes Presetec</h1>
+
+      </header>
+
+      <nav>
+        <fieldset id='rm_fs_fecha'>
+          <legend>Fecha del reporte</legend>
+          <input id='rm_fecha' type="date" name="" value="">
+        </fieldset>
+        <div id='rm_contenedor_seleccion' class="" style='display:none;'>
+
+          <fieldset id='rm_fs_tipo_troncal'>
+            <legend>Tipo Troncal</legend>
+            <select id='rm_tipo_troncal' class="" name=""></select>
+          </fieldset>
+          <fieldset id='rm_fs_nemos'>
+            <legend>Compañías</legend>
+            <select id='rm_nemos' class="" name=""></select>
+          </fieldset>
+          <fieldset >
+            <legend>Señalización</legend>
+            <select id='rm_cb_senalizacion' class="" name=""></select>
+          </fieldset>
+          <fieldset id='rm_fs_areas'>
+            <legend>Área</legend>
+            <select id='rm_area' class="" name=""></select>
+          </fieldset>
+          <fieldset id='rm_fs_zonas'>
+            <legend>Zona</legend>
+            <select id='rm_zona' class="" name=""></select>
+          </fieldset>
+          <fieldset id='rm_fs_centrales' >
+            <legend>Central</legend>
+            <select id='rm_central' class="" name=""></select>
+          </fieldset>
+          <fieldset id='rm_fs_rutas'>
+            <legend>Rutas</legend>
+            <select id='rm_ruta' class="" name="" multiple></select>
+          </fieldset>
+        </div>
+      </nav>
+
+      <article>
+        <div id='rm_contenedor_trafico' class="" style='display:none;'>
+          <div id='rm_contenedor_menu' class="contenedor_info"></div>
+
+          <div id='rm_contenedor_trafico_diario' class="contenedor_info"></div>
+          <div id='rm_contenedor_rutas' class="contenedor_info"></div>
+          <div id='rm_contenedor_puntos_codigo' class="contenedor_info"></div>
+          <div id='rm_contenedor_ayuda' class="ventana_ayuda" >
+            <iframe src="/html/dev/ventana_ayuda.html" ></iframe>
+          </div>
+          <div id='rm_contenedor_graficos' class="">
+            <fieldset id='rm_fs_opciones_grafico'>
+              <legend align="left" class="nombre_seleccion">Elige la variable que deseas visualizar</legend>
+              <form name="campos">
+                <label class='radio_button'>Intentos
+                  <input id='rm_rb_intentos'  type="radio" name="radios" value="rm_rb_intentos">
+                  <span class="checkmark"></span>
+                </label>
+                <label class='radio_button'>ASR
+                  <input id='rm_rb_asr' type="radio"  name="radios" value="rm_rb_asr">
+                  <span class="checkmark"></span>
+                </label>
+                <label class='radio_button'>Ocupación
+                  <input id='rm_rb_ocupacion'  type="radio" name="radios" value="rm_rb_ocupacion">
+                  <span class="checkmark"></span>
+                </label>
+                <label class='radio_button'>Niveles de Ocupación
+                  <input id='rm_rb_niveles_ocupacion'  type="radio" name="radios" value="rm_rb_niveles_ocupacion">
+                  <span class="checkmark"></span>
+                </label>
+              </form>
+            </fieldset>
+            <div id='rm_contenedor_grafico_diario' class="cont_grafico" style.display='block'></div>
+            <div id="rm_contenedor_grafico_mensual" class="cont_grafico" style.display='block'></div>
+            <div id="rm_contenedor_grafico_mensual_1" class="cont_grafico" style.display='inline'></div>
+            <div id="rm_contenedor_grafico_mensual_2" class="cont_grafico" style.display='inline'></div>
+            <div id="rm_contenedor_grafico_nivel_ocupacion" class="cont_grafico" style.display='inline'></div>
+            <div id='rm_cont_tabla_datos_mensual' class="" style="heigth:100%;"></div>
+          </div>
+        </div>
+
+        <div id='rm_contenedor_ventana_bienvenida' class="bienvenida" style='display:none; heigth:100%;'>
+          <iframe src="/html/dev/ventana_bienvenida.html" ></iframe>
+        </div>
+        <div id='rm_contenedor_ventana_carga' class="" style='display:none;'>
+          <h1><b>Cargando los Datos</b></h1>
+          <div class="cont_ventana_carga_datos" style="display:inline; width:50%">
+            <h1>Estamos enriqueciendo tu experiencia</h1>
+            <p>Para que tus consultas sean casi instantáneas, estamos recuperando los datos desde la Base de Datos del sistema.</p>
+
+            <progress value="0" max="100">0%</progress>
+            <h2><b>Por favor, espera unos segundos.</b></h2>
+          </div>
+          <div class="cont_ventana_carga_datos" style="display:inline; width:50%">
+
+            <label class='checkbox'>Centrales
+              <input id='rm_checkbox_carga_centrales' type="checkbox" name="carga" value="">
+              <span class="cb_checkmark"></span>
+            </label>
+            <label class='checkbox'>Erlangs
+              <input id='rm_checkbox_carga_erlangs' type="checkbox" name="carga" value="">
+              <span class="cb_checkmark"></span>
+            </label>
+            <label class='checkbox'>Compañías
+              <input id='rm_checkbox_carga_nemos' type="checkbox" name="carga" value="">
+              <span class="cb_checkmark"></span>
+            </label>
+            <label class='checkbox'>Rutas actuales
+              <input id='rm_checkbox_carga_rutas' type="checkbox" name="carga" value="">
+              <span class="cb_checkmark"></span>
+            </label>
+            <label class='checkbox'>Rutas del Mes Anterior
+              <input id='rm_checkbox_carga_rutas_1' type="checkbox" name="carga" value="">
+              <span class="cb_checkmark"></span>
+            </label>
+            <label class='checkbox'>Estadísticas Mensuales
+              <input id='rm_checkbox_carga_estadisticas' type="checkbox" name="carga" value="">
+              <span class="cb_checkmark"></span>
+            </label>
+            <label class='checkbox'>Estadísticas Mensuales mes Anterior
+              <input id='rm_checkbox_carga_estadisticas_1' type="checkbox" name="carga" value="">
+              <span class="cb_checkmark"></span>
+            </label>
+            <label class='checkbox'>Estadísticas Mensuales de 2 meses atrás
+              <input id='rm_checkbox_carga_estadisticas_2' type="checkbox" name="carga" value="">
+              <span class="cb_checkmark"></span>
+            </label>
+            <label class='checkbox'>Datos Diarios del mes
+              <input id='rm_checkbox_carga_datos_dia' type="checkbox" name="carga" value="">
+              <span class="cb_checkmark"></span>
+            </label>
+
+          </div>
+        </div>
+      </article>
+    </div>
+
+  </body>
+
+  <script type="text/javascript">
+    w3.includeHTML(function(){
+      var contValidacion=document.getElementById('rm_validacion_usuario');
+      var config=getConfigValidacion();
+      var validacion=new VentanaValidacionUsuario(bd, config, false, function(admin){
+        contValidacion.style.display='none';
+        var div=document.getElementById('rm_reporte');
+        div.style.display='block';
+        var config=getConfigReporteMensual();
+        var reporteMensual = new ReporteMensual(bd, config);
+      });
+    });
+
+    function getConfigValidacion(){
+      var config={};
+      config.correo=document.getElementById('vv_correo');
+      config.pwd=document.getElementById('vv_pwd');
+      config.msg=document.getElementById('vv_msg');
+      config.btnValidar=document.getElementById('vv_btn_validar');
+      config.btnOlvido=document.getElementById('vv_btn_olvido');
+      return config;
+    }
+
+
+
+    function getConfigReporteMensual(){
+      var config={};
+      config.fsFecha=document.getElementById('rm_fs_fecha');
+      config.Fecha=document.getElementById('rm_fecha');
+      config.contSeleccion=document.getElementById('rm_contenedor_seleccion');
+      config.fsNemos=document.getElementById('rm_fs_nemos');
+      config.cbNemos=document.getElementById('rm_nemos');
+      config.fsAreas=document.getElementById('rm_fs_areas');
+      config.cbAreas=document.getElementById('rm_area');
+      config.cbSenalizacion=document.getElementById('rm_cb_senalizacion');
+      config.fsZonas=document.getElementById('rm_fs_zonas');
+      config.cbZonas=document.getElementById('rm_zona');
+      config.fsTipoTroncal=document.getElementById('rm_fs_tipo_troncal');
+      config.cbTipoTroncal=document.getElementById('rm_tipo_troncal');
+      config.fsCentrales=document.getElementById('rm_fs_centrales');
+      config.cbCentrales=document.getElementById('rm_central');
+      config.fsRutas=document.getElementById('rm_fs_rutas');
+      config.cbRutas=document.getElementById('rm_ruta');
+      config.fsOpcionesGrafico=document.getElementById('rm_fs_opciones_grafico');
+      config.rbIntentos=document.getElementById('rm_rb_intentos');
+      config.rbOcupacion=document.getElementById('rm_rb_ocupacion');
+      config.rbNivelesOcupacion=document.getElementById('rm_rb_niveles_ocupacion');
+      config.rbAsr=document.getElementById('rm_rb_asr');
+      config.cvGraf1=document.getElementById('rm_contenedor_grafico_mensual');
+      config.cvGraf2=document.getElementById('rm_contenedor_grafico_mensual_1');
+      config.cvGraf3=document.getElementById('rm_contenedor_grafico_mensual_2');
+      config.cvGraf4=document.getElementById('rm_contenedor_grafico_nivel_ocupacion');
+      config.contTablaDatosMensual=document.getElementById('rm_cont_tabla_datos_mensual');
+      // nuevos
+      config.contenedorGraficos=document.getElementById('rm_contenedor_graficos');
+      config.contenedorCargaDatos=document.getElementById('rm_contenedor_ventana_carga');
+      config.contenedorBienvenida=document.getElementById('rm_contenedor_ventana_bienvenida');
+      config.contenedorGraficoDiario=document.getElementById('rm_contenedor_grafico_diario');
+      config.contenedorMenu=document.getElementById('rm_contenedor_menu');
+      config.contenedorTraficoDiario=document.getElementById('rm_contenedor_trafico_diario');
+      config.contenedorRutas=document.getElementById('rm_contenedor_rutas');
+      config.contenedorPuntosCodigo=document.getElementById('rm_contenedor_puntos_codigo');
+      config.contenedorAyuda=document.getElementById('rm_contenedor_ayuda');
+      config.contenedorTrafico=document.getElementById('rm_contenedor_trafico');
+      config.checkboxCentrales=document.getElementById('rm_checkbox_carga_centrales');
+      config.checkboxErlangs=document.getElementById('rm_checkbox_carga_erlangs');
+      config.checkboxNemos=document.getElementById('rm_checkbox_carga_nemos');
+      config.checkboxRutas=document.getElementById('rm_checkbox_carga_rutas');
+      config.checkboxRutas_1=document.getElementById('rm_checkbox_carga_rutas_1');
+      config.checkboxEstadisticas=document.getElementById('rm_checkbox_carga_estadisticas');
+      config.checkboxEstadisticas_1=document.getElementById('rm_checkbox_carga_estadisticas_1');
+      config.checkboxEstadisticas_2=document.getElementById('rm_checkbox_carga_estadisticas_2');
+      config.checkboxDatosDiario=document.getElementById('rm_checkbox_carga_datos_dia');
+      return config;
+    }
+
+  </script>
+</html>

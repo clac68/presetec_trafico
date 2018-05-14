@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="sp" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+    <script src="/js/dev/clases_base/bd.js"></script>
+    <script src="/js/dev/clases_base/usuarios.js"></script>
+    <script src="/js/dev/mantenedores/mantenedor_usuarios.js"></script>
+    <script src="/js/utiles.js"></script>
+
+  </head>
+  <body>
+    <fieldset>
+      <legend>Mantenedor de Usuarios</legend>
+      <label>Usuarios
+        <select id='mu_usuarios' class="" name="" ></select>
+      </label>
+      <br>
+      <label>Nombre
+        <input id='mu_nombre' size="30" type="text" name="" value="" onKeyUp="this.value=this.value.toUpperCase();">
+      </label>
+      <br>
+      <label>Correo
+        <input id='mu_correo' size="40" type="email" name="" value="" onKeyUp="this.value=this.value.toUpperCase();">
+      </label>
+      <br>
+      <label class='checkbox'>Administrador Datos
+        <input id='mu_checkbox_administrador' type='checkbox' name="radios" value="mu_checkbox_cargar_trafico">
+        <span class="checkmark"></span>
+      </label>
+      <br>
+      <p id='mu_msg_usuario'></p>
+      <br>
+      <button id='mu_button_add' type="button" name="button">Agregar Usuario</button>
+      <button id='mu_button_edit' type="button" name="button">Modificar Usuario</button>
+      <button id='mu_button_delete' type="button" name="button">Eliminar Usuario</button>
+      <button id='mu_button_get_users' type="button" name="button">Obtener Usuarios</button>
+
+      <fieldset id='mu_fs_accion'>
+        <legend id='mu_legend_accion'>Acción</legend>
+        <label>Nombre
+          <input id='mu_accion_nombre' size="30" type="text" name="" value="" onKeyUp="this.value=this.value.toUpperCase();">
+        </label>
+        <br>
+        <label>Correo
+          <input id='mu_accion_correo' size="40" type="email" name="" value="" onKeyUp="this.value=this.value.toUpperCase();">
+        </label>
+        <br>
+        <label class='checkbox'>Administrador Datos
+          <input id='mu_checkbox_accion_administrador' type='checkbox' name="radios" value="mu_checkbox_accion_cargar_trafico">
+          <span class="checkmark"></span>
+        </label>
+        <br>
+        <button id='mu_button_accion' type="button" name="button">Acción</button>
+        <br>
+        <p id='mu_msg_usuario_accion'></p>
+      </fieldset>
+    </fieldset>
+    <script type="text/javascript">
+
+      window.onload=function(){
+        console.log('inicio mantenedor de usuario');
+        config=getConfigMantenedorUsuarios();
+        var mant=new MantenedorUsuarios(bd, config);
+      }
+      function getConfigMantenedorUsuarios(){
+        var config={};
+        config.cbUsuarios=document.getElementById('mu_usuarios');
+
+        config.inputNombre=document.getElementById('mu_nombre');
+        config.inputCorreo=document.getElementById('mu_correo');
+        config.checkboxAdministrador=document.getElementById('mu_checkbox_administrador');
+
+        config.btnAddUsuario=document.getElementById('mu_button_add');
+        config.btnEditUsuario=document.getElementById('mu_button_edit');
+        config.btnDeleteUsuario=document.getElementById('mu_button_delete');
+        config.btnGetUsers=document.getElementById('mu_button_get_users');
+
+        config.fsAccion=document.getElementById('mu_fs_accion');
+        config.legendAccion=document.getElementById('mu_legend_accion');
+
+        config.inputNombreAccion=document.getElementById('mu_accion_nombre');
+        config.inputCorreoAccion=document.getElementById('mu_accion_correo');
+
+        config.checkboxAccionAdministrador=document.getElementById('mu_checkbox_accion_administrador');
+
+        config.btnAccion=document.getElementById('mu_button_accion');
+
+        config.msg=document.getElementById('mu_msg_usuario');
+        config.msgAccion=document.getElementById('mu_msg_usuario_accion');
+
+
+
+        return config;
+      }
+
+
+    </script>
+  </body>
+</html>

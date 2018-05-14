@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+
+    <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+    <script src="/js/dev/clases_base/bd.js"></script>
+    <script src="/js/dev/clases_base/rutas.js"></script>
+    <script src="/js/dev/clases_base/centrales.js"></script>
+    <script src="/js/dev/clases_base/Tabla.js"></script>
+    <script src="/js/dev/clases_base/ventana_puntos_codigo.js"></script>
+    <script src="/js/utiles.js"></script>
+    <link rel="stylesheet" href="/css/clac_style.css">
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    <div id='contenedor' class="">
+
+    </div>
+<script type="text/javascript">
+
+  window.onload=function(){
+    console.log('inicio mantenedor trafico');
+    document.rutas=new Rutas(bd);
+    document.RutasCargadas=false;
+    document.centrales=new Centrales(bd);
+    document.CentralesCargadas=false;
+    document.rutas.getDataFromBD(2018, 3, function(){
+      document.RutasCargadas=true;
+      BDCargada();
+    }, function(e){
+      console.error('No fue posible rescatar las rutas');
+      console.error(e);
+    });
+    document.centrales.getCentrales(function(){
+      document.CentralesCargadas=true;
+      BDCargada();
+    }, function(e){
+        console.error('No fue posible rescatar las centrales');
+        console.error(e);
+    });
+  }
+
+  function BDCargada(){
+    console.log('BDCargada');
+    if((document.RutasCargadas)&&(document.CentralesCargadas)){
+      console.log('Llegaron los datos');
+      var cont=document.getElementById('contenedor');
+      var vent=new VentanaPuntosCodigo(cont, document.centrales, document.rutas);
+    }
+  }
+</script>
+
+  </body>
+</html>

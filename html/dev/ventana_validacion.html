@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+
+      <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+      <script src="/js/dev/clases_base/bd.js"></script>
+      <script src="/js/dev/clases_base/ventana_validacion.js"></script>
+      <script src="/js/dev/clases_base/usuarios.js"></script>
+
+  </head>
+  <body>
+    <div style.text-align="center">
+      <legend></legend>
+      <label>Correo
+        <input id='vv_correo' type="email" name="" value="">
+      </label>
+      <br>
+      <label>Contraseña
+        <input id='vv_pwd' type="password" name="" value="">
+      </label>
+      <br>
+      <p id='vv_msg'></p>
+      <br>
+      <button id='vv_btn_validar' type="button" name="button">Validar</button>
+      <button id='vv_btn_olvido' type="button" name="button">Olvidé la Contraseña</button>
+    </div>
+    <script type="text/javascript">
+      window.onload=function(){
+        var config=getConfig();
+        var vv=new VentanaValidacionUsuario(bd, config, true, function(){
+
+        });
+      }
+      function getConfig(){
+        var config={};
+        config.correo=document.getElementById('vv_correo');
+        config.pwd=document.getElementById('vv_pwd');
+        config.msg=document.getElementById('vv_msg');
+        config.btnValidar=document.getElementById('vv_btn_validar');
+        config.btnOlvido=document.getElementById('vv_btn_olvido');
+        return config;
+      }
+    </script>
+  </body>
+
+</html>

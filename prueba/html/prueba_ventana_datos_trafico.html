@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+    <script src="/js/dev/clases_base/bd.js"></script>
+    <script src="/js/dev/clases_base/usuarios.js"></script>
+    <script src="/js/dev/clases_base/erlangs.js"></script>
+    <script src="/js/dev/clases_base/centrales.js"></script>
+    <script src="/js/dev/clases_base/nemos.js"></script>
+    <script src="/js/dev/clases_base/rutas.js"></script>
+    <script src="/js/dev/clases_base/trafico_diario.js"></script>
+    <script src="/js/dev/clases_base/trafico_mensual.js"></script>
+    <script src="/js/dev/clases_base/Tabla.js"></script>
+    <script src="/js/dev/clases_base/ventana_datos_trafico_diario.js"></script>
+    <script src="/js/utiles.js"></script>
+
+  <link rel="stylesheet" href="/css/clac_style.css">
+  <link rel="stylesheet" href="/css/tabla.css">
+  <style media="screen">
+    .ventana_datos_trafico_diario {
+      width: 100%;
+      overflow: auto;
+    }
+  </style>
+  </head>
+  <body>
+<div id='contenedor' class="">
+
+</div>
+
+<script type="text/javascript">
+
+  window.onload=function(){
+    console.log('inicio mantenedor trafico');
+    document.rutas=new Rutas(bd);
+    document.RutasCargadas=false;
+    document.centrales=new Centrales(bd);
+    document.CentralesCargadas=false;
+    document.erlangs= new Erlangs(bd);
+    document.erlangsCargados=false;
+    document.TraficoMensual= new TraficoMensual(bd);
+    document.TraficoMensualCargado=false;
+    document.TraficoMensual_1= new TraficoMensual(bd);
+    document.TraficoMensualCargado_1=false;
+    document.TraficoMensual_2= new TraficoMensual(bd);
+    document.TraficoMensualCargado_2=false;
+    document.TraficoDiario= new TraficoDiario(bd);
+    document.TraficoDiarioCargado=false;
+
+    document.rutas.getDataFromBD(2018, 3, function(){
+      document.RutasCargadas=true;
+      BDCargada();
+    }, function(e){
+      console.error('No fue posible rescatar las rutas');
+      console.error(e);
+    });
+    document.centrales.getCentrales(function(){
+      document.CentralesCargadas=true;
+      BDCargada();
+    }, function(e){
+        console.error('No fue posible rescatar las centrales');
+        console.error(e);
+    });
+    document.erlangs.getErlangsFromBD(function(){
+      document.erlangsCargados=true;
+      BDCargada();
+    }, function(e){
+        console.error('No fue posible rescatar los erlangs');
+        console.error(e);
+
+    });
+    document.TraficoMensual.getDataMensualFromBD(2018, 3, function(){
+      document.TraficoMensualCargado=true;
+      BDCargada();
+    }, function(e){
+        console.error('No fue posible rescatar el tráfico mensual');
+        console.error(e);
+    });
+    document.TraficoMensual_1.getDataMensualFromBD(2018, 2, function(){
+      document.TraficoMensualCargado_1=true;
+      BDCargada();
+    }, function(e){
+        console.error('No fue posible rescatar el tráfico mensual');
+        console.error(e);
+    });
+    document.TraficoMensual_2.getDataMensualFromBD(2018, 1, function(){
+      document.TraficoMensualCargado_2=true;
+      BDCargada();
+    }, function(e){
+        console.error('No fue posible rescatar el tráfico mensual');
+        console.error(e);
+    });
+    document.TraficoDiario.getDataMesRutaFromBD(2018, 3, 'DMS_ANTO', 'ANT21T7BANTO055', function(){
+      document.TraficoDiarioCargado=true;
+      BDCargada();
+    },function(e){
+        console.error('No fue posible rescatar el tráfico Diario');
+        console.error(e);
+    });
+    /*
+    document.TraficoDiario.getDataMesFromBD(2018, 3, function(){
+      document.TraficoDiarioCargado=true;
+      BDCargada();
+    },function(e){
+        console.error('No fue posible rescatar el tráfico Diario');
+        console.error(e);
+    });
+    */
+  }
+
+  function BDCargada(){
+    console.log('BDCargada');
+    if((document.RutasCargadas)&&(document.CentralesCargadas)&&(document.TraficoMensualCargado)
+        &&(document.erlangsCargados)&&(document.TraficoMensualCargado_1)
+        &&(document.TraficoMensualCargado_2)&&(document.TraficoDiarioCargado)){
+      console.log('Llegaron los datos');
+      var cont=document.getElementById('contenedor');
+      var vent= new VentanaDatosTraficoDiario(contenedor,document.centrales, document.rutas,
+       {mesActual:document.TraficoMensual, mes_1:document.TraficoMensual_1, mes_2: document.TraficoMensual_2}
+       , document.TraficoDiario,  document.erlangs);
+    }
+  }
+</script>
+  </body>
+</html>

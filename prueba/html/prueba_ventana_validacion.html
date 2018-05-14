@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+  <script src="/js/dev/clases_base/bd.js"></script>
+  <script src="/js/dev/clases_base/usuarios.js"></script>
+  <script src="/js/dev/clases_base/ventana_validacion.js"></script>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id='contenedor_validacion' class="">
+
+    </div>
+
+    <script type="text/javascript">
+      console.log(bd);
+      var cont=document.getElementById('contenedor_validacion');
+      var val=new VentanaValidacionUsuario(cont, bd, false,  function(){
+        console.log('usuario validadado');
+      });
+    </script>
+  </body>
+</html>

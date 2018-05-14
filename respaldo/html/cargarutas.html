@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+  <script src="/js/cargarutas.js"></script>
+  <script src="/js/cargadatos.js"></script>
+</head>
+<body>
+
+  <fieldset>
+    <legend align="left"  class="nombre_seleccion">Mantenedor de centrales</legend>
+    <select id="central" class="combobox">
+      <option value="maipu">Maipú</option>
+      <option value="santiago">Santiago</option>
+      <option value="otra">Concepción</option>
+    </select>
+    <button>Agregar</button>
+  </fieldset>
+
+
+  <fieldset>
+    <legend align="left"  class="nombre_seleccion">Carga Archivo de Nemos</legend>
+    <<input type="file" id="ArchivoNemos" />
+  </fieldset>
+
+  <fieldset>
+    <legend align="left"  class="nombre_seleccion">Carga Archivo de Central</legend>
+    <input type="file" id="ArchivoCentral" />
+
+  </fieldset>
+<button onclick="goPrueba()">Prueba Firebase</button>
+
+<progress id="barra_progreso" value="0" max="100">
+<h3>Contenido del archivo:</h3>
+<pre id="contenido-archivo"></pre>
+<script>
+function goPrueba(){
+  document.addEventListener("carga_ok", function(d){
+    console.log(d);
+  });
+  DataCarga.pruebaFirebase();
+}
+function leerArchivoCentral(e) {
+  var bProgreso = document.getElementById("barra_progreso");
+  bProgreso.value=0;
+  bProgreso.max=e.target.files.length;
+  for(var i=0; i<e.target.files.length;i++){
+      var archivo = e.target.files[i];
+      if (archivo){
+        var lector = new FileReader();
+        lector.onload = function(e) {
+          var contenido = e.target.result;
+          DataRutas.resetData();
+          DataRutas.procesaArchivoCentral("maipu", this.result);
+          console.log(DataRutas.getErrores());
+          console.log(DataRutas.getRutas());
+          DataCarga.cargaRutas("Maipu", "2018-01", DataRutas.getRutas())
+        }
+        lector.readAsText(archivo);
+      }
+  }
+}
+
+
+document.getElementById('ArchivoCentral')
+  .addEventListener('change', leerArchivoCentral, false);
+
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+.cont_ventana_carga_datos {
+	float:left;
+	display: inline;
+  width: 50%;
+  vertical-align:middle;
+	text-align: left;
+}
+
+.cont_ventana_carga_datos label{
+	text-align: left;
+}
+
+.cont_ventana_carga_datos progress {
+	width:100%;
+}
+
+.cont_ventana_carga_datos p {
+	color: blue;
+	font-size: 130%;
+}
+
+.cont_ventana_carga_datos h1{
+	color: blue;
+}
+.cont_ventana_carga_datos h2{
+	color: yellow;
+}

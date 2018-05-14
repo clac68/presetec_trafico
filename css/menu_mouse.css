@@ -1,0 +1,15 @@
+
+div.menu {
+    position:absolute;
+    border: solid blue;
+    top:100px;
+    left:200px;
+}
+button.menu{
+  width:100%
+  font-size:120%
+}
+canvas.grafico {
+   width: 300;
+   height:50;
+}

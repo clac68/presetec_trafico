@@ -1,0 +1,50 @@
+<div class="container">
+<header>
+ <h1 id="encabezado" class="contenedor">Reportes Presetec</h1>
+ <link rel="stylesheet" href="/css/contenedor.css">
+</header>
+
+<nav>
+  <fieldset >
+    <legend align="center" class="nombre_seleccion">Selecciona los datos solictados</legend>
+    <fieldset>
+      <legend align="left"  class="nombre_seleccion">Central</legend>
+      <select id="central" class="combobox">
+        <option value="maipu">Maipú</option>
+        <option value="santiago">Santiago</option>
+        <option value="otra">Concepción</option>
+      </select>
+    </fieldset>
+    <fieldset>
+      <legend align="left" class="nombre_seleccion">Ruta</legend>
+      <select id="ruta" class="combobox">
+      </select>
+    </fieldset>
+    <fieldset>
+      <legend align="left" class="nombre_seleccion">Fecha</legend>
+      <input id="fecha" type="date"></input>
+    </fieldset>
+    <fieldset >
+      <legend align="left" class="nombre_seleccion"></legend>
+      <button onclick="getDatos()" type="submit" value="submit" align="center">Recupera Datos</button>
+    </fieldset>
+
+  </fieldset>
+</nav>
+
+<article>
+  <fieldset id=fsCampos>
+    <legend align="left" class="nombre_seleccion">Elige la variable que deseas visualizar</legend>
+    <form name="campos">
+      <input type="radio" name="radios" value="idCircuitos">Circuitos
+      <input type="radio" name="radios" value="idIntentos">Intentos
+      <input type="radio" name="radios" value="idDesborde">Desborde
+      <input type="radio" name="radios" value="idConnect">Connect
+      <input type="radio" name="radios" value="idRespuesta">Respuesta
+    </form>
+  </fieldset>
+  <canvas id="myChart" width="200" height="50"></canvas>
+  <image src="/images/vtr1.png" height="300" >
+  <h1>PRESETEC</h1>
+  <p>Descripción de Presetec</p>
+</article>

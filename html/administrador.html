@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+  <script src="/js/dev/clases_base/bd.js"></script>
+  <script src="/js/dev/mantenedores/mantenedor_central.js"></script>
+  <script src="/js/dev/clases_base/centrales.js"></script>
+  <script src="/js/dev/clases_base/Tabla.js"></script>
+  <script src="/js/dev/clases_base/ventana_validacion.js"></script>
+  <script src="/js/dev/clases_base/usuarios.js"></script>
+  <script src="/js/dev/mantenedores/mantenedor_erlangs.js"></script>
+  <script src="/js/dev/clases_base/erlangs.js"></script>
+  <script src="/js/dev/mantenedores/mantenedor_nemos.js"></script>
+  <script src="/js/dev/clases_base/nemos.js"></script>
+  <script src="/js/dev/mantenedores/mantenedor_rutas.js"></script>
+  <script src="/js/dev/clases_base/rutas.js"></script>
+  <script src="/js/dev/mantenedores/mantenedor_trafico.js"></script>
+  <script src="/js/dev/clases_base/trafico_diario.js"></script>
+  <script src="/js/dev/clases_base/trafico_mensual.js"></script>
+  <script src="/js/dev/clases_base/usuarios.js"></script>
+  <script src="/js/dev/mantenedores/mantenedor_usuarios.js"></script>
+  <script src="/js/utiles.js"></script>
+  <script src="/js/w3.js"></script>
+
+  <link rel="stylesheet" href="/css/menu_administrador.css" >
+  <link rel="stylesheet" href="/css/tabla.css" >
+  <link rel="stylesheet" href="/css/administrador.css" >
+
+
+</head>
+<body>
+  <div id='adm_validacion_usuario' class="validacion_usuario">
+    <h1>Bienvenido al sistema de Tráfico Presetec</h1>
+    <h2>Por favor, ingresa tu correo y contraseña</h2>
+    <div id='adm_validacion' w3-include-html="/html/dev/ventana_validacion.html"></div>
+  </div>
+  <div id='adm_mantenedores' class="" style="display:none; overflow:auto;" >
+    <ul>
+      <li id='adm_centrales' ><label>Centrales</label></li>
+      <li id='adm_erlangs'><label>Erlangs</label></li>
+      <li id='adm_nemos'><label>Nemos</label></li>
+      <li id='adm_rutas'><label>Rutas</label></li>
+      <li id='adm_trafico'><label>Tráfico</label></li>
+      <li id='adm_usuarios'><label>Usuarios</label></li>
+    </ul>
+    <div style="padding:20px;margin-top:30px;background-color:#1abc9c;height:1500px;">
+    <div id='adm_mantenedor_centrales' w3-include-html="/html/dev/mantenedor_centrales.html"></div>
+    <div id='adm_mantenedor_erlangs' w3-include-html="/html/dev/mantenedor_erlangs.html"></div>
+    <div id='adm_mantenedor_nemos' w3-include-html="/html/dev/mantenedor_nemos.html"></div>
+    <div id='adm_mantenedor_rutas' w3-include-html="/html/dev/mantenedor_rutas.html"></div>
+    <div id='adm_mantenedor_trafico' w3-include-html="/html/dev/mantenedor_trafico.html"></div>
+    <div id='adm_mantenedor_usuarios' w3-include-html="/html/dev/mantenedor_usuarios.html"></div>
+
+  </div>
+<script>
+
+function hideMantenedores(){
+  var admCentrales=document.getElementById('adm_mantenedor_centrales');
+  admCentrales.style.display='none';
+  var admErlangs=document.getElementById('adm_mantenedor_erlangs');
+  admErlangs.style.display='none';
+  var admNemos=document.getElementById('adm_mantenedor_nemos');
+  admNemos.style.display='none';
+  var admRutas=document.getElementById('adm_mantenedor_rutas');
+  admRutas.style.display='none';
+  var admTrafico=document.getElementById('adm_mantenedor_trafico');
+  admTrafico.style.display='none';
+  var admUsuarios=document.getElementById('adm_mantenedor_usuarios');
+  admUsuarios.style.display='none';
+
+  var li=document.getElementsByTagName('li');
+  console.log(li);
+  for(var i=0; i<li.length;i++){
+    li[i].className='';
+  }
+}
+function initMenu(){
+  var menuCentrales=document.getElementById('adm_centrales');
+  menuCentrales.onclick=function(){
+    hideMantenedores();
+    this.className='active';
+    var admCentrales=document.getElementById('adm_mantenedor_centrales');
+    admCentrales.style.display='block';
+  };
+  var menuErlangs=document.getElementById('adm_erlangs');
+  menuErlangs.onclick=function(){
+    hideMantenedores();
+    this.className='active';
+    var admErlangs=document.getElementById('adm_mantenedor_erlangs');
+    admErlangs.style.display='block';
+  };
+  var menuNemos=document.getElementById('adm_nemos');
+  menuNemos.onclick=function(){
+    hideMantenedores();
+    this.className='active';
+    var admNemos=document.getElementById('adm_mantenedor_nemos');
+    admNemos.style.display='block';
+  };
+  var menuRutas=document.getElementById('adm_rutas');
+  menuRutas.onclick=function(){
+    hideMantenedores();
+    this.className='active';
+    var admRutas=document.getElementById('adm_mantenedor_rutas');
+    admRutas.style.display='block';
+  };
+  var menuTrafico=document.getElementById('adm_trafico');
+  menuTrafico.onclick=function(){
+    hideMantenedores();
+    this.className='active';
+    var admTrafico=document.getElementById('adm_mantenedor_trafico');
+    admTrafico.style.display='block';
+  };
+  var menuUsuarios=document.getElementById('adm_usuarios');
+  menuUsuarios.onclick=function(){
+    hideMantenedores();
+    this.className='active';
+    var admUsuarios=document.getElementById('adm_mantenedor_usuarios');
+    admUsuarios.style.display='block';
+  };
+}
+
+function initMantenedores(){
+  initCentrales();
+  initErlangs();
+  initNemos();
+  initRutas();
+  initTrafico();
+  initUsuarios();
+}
+w3.includeHTML(function(){
+  var contMantenedor=document.getElementById('adm_mantenedores');
+  contMantenedor.style.display='none';
+  var contValidacion=document.getElementById('adm_validacion_usuario');
+  var config=getConfigValidacion();
+  var ventValidacion=new VentanaValidacionUsuario(bd, config, true, function(admin){
+      console.log('validado');
+      initMantenedores();
+      initMenu();
+      contValidacion.style.display='none';
+      var menuCentrales=document.getElementById('adm_centrales');
+      menuCentrales.className='active';
+      menuCentrales.onclick();
+      contMantenedor.style.display='block';
+  });
+});
+function getConfigValidacion(){
+  var config={};
+  config.correo=document.getElementById('vv_correo');
+  config.pwd=document.getElementById('vv_pwd');
+  config.msg=document.getElementById('vv_msg');
+  config.btnValidar=document.getElementById('vv_btn_validar');
+  config.btnOlvido=document.getElementById('vv_btn_olvido');
+  return config;
+}
+function initCentrales(){
+  var config={};
+  config.cb=document.getElementById('cbcentral');
+  config.addShortName=document.getElementById('actionNombreCortoCentral');
+  config.addCodigoCentral=document.getElementById('actionCodCentral');
+  config.addNombre=document.getElementById('actionNombreCentral');
+  config.addDescripcion=document.getElementById('actionDescCentral');
+  config.btnAgregar=document.getElementById('btnAgregaCentral');
+  config.btnEliminar=document.getElementById('btnEliminaCentral');
+  config.btnActualizar=document.getElementById('btnActualizaCentral');
+  config.btnAccion=document.getElementById('btnAccionCentral');
+  config.contenedorTabla=document.getElementById('contenedor_tabla_central');
+  config.infoAccion=document.getElementById('info_accion_central');
+  console.log(config.infoAccion);
+  config.contenedorAccion=document.getElementById('contenedor_accion_central');
+  config.legend=document.getElementById('legenda_accion_central');
+  var mantenedorCentrales=new MantendedorCentrales(bd, config);
+}
+function initErlangs(){
+  var config ={};
+  config.cbErlangs=document.getElementById('cbErlangs');
+  config.msg=document.getElementById('mensaje_erlangs');
+  config.contenedorTablaErlang=document.getElementById('contenedor_tabla_erlang');
+  config.btnAddErlang=document.getElementById('btnAddErlang');
+  config.btnUpdateErlang=document.getElementById('btnUpdateErlang');
+  config.btnDeleteErlang=document.getElementById('btnDeleteErlang');
+  config.btnUploadErlang=document.getElementById('btnUploadErlang');
+  config.inputCodeErlang=document.getElementById('inputCodeErlang');
+  config.inputValorErlang=document.getElementById('inputValorErlang');
+  config.btnAccionErlang=document.getElementById('btnAccionErlang');
+  config.fileErlang=document.getElementById('fileErlang');
+  config.contenedorTablaErlangs=document.getElementById('contenedor_tabla_erlangs');
+  config.fsAccion=document.getElementById('fsAccion');
+  config.fsLegendaAccion=document.getElementById('legendAccion');
+  config.fsCargaErlang=document.getElementById('fsCargaErlang');
+  config.btnCargarArchivoErlang=document.getElementById('btnCargarArchivoErlang');
+  var mantenedorErlangs=new MantenedorErlangs(bd, config);
+}
+
+function initNemos(){
+  var config ={};
+  config.cbnemos=document.getElementById('cbnemos');
+  config.msg=document.getElementById('mensaje_nemos');
+  config.contenedorTablanemo=document.getElementById('contenedor_tabla_nemo');
+  config.btnAddnemo=document.getElementById('btnAddnemo');
+  config.btnUpdatenemo=document.getElementById('btnUpdatenemo');
+  config.btnDeletenemo=document.getElementById('btnDeletenemo');
+  config.btnUploadnemo=document.getElementById('btnUploadnemo');
+  config.inputCodenemo=document.getElementById('inputCodenemo');
+  config.inputValornemo=document.getElementById('inputValornemo');
+  config.btnAccionnemo=document.getElementById('btnAccionnemo');
+  config.filenemo=document.getElementById('filenemo');
+  config.contenedorTablanemos=document.getElementById('contenedor_tabla_nemos');
+  config.fsAccion=document.getElementById('fsAccion');
+  config.fsLegendaAccion=document.getElementById('legendAccion');
+  config.fsCarganemo=document.getElementById('fsCarganemo');
+  config.btnCargarArchivonemo=document.getElementById('btnCargarArchivonemo');
+  var mantenedornemos=new Mantenedornemos(bd, config);
+}
+function initRutas(){
+  var config ={};
+  config.fecha=document.getElementById('mr_fecRutas');
+  config.msg=document.getElementById('mr_msgRutas');
+  config.fsCentralesRutas=document.getElementById('mr_fsCentralesRutas');
+  config.cbCentrales=document.getElementById('mr_cbCentrales');
+  config.cbRutas=document.getElementById('mr_cbRutas');
+  config.contRutas=document.getElementById('mr_contenedor_info_ruta');
+  config.btnCargaRutas=document.getElementById('mr_btnCarga');
+  config.btnBorraRutas=document.getElementById('mr_btnBorra');
+  config.btnComparaRutas=document.getElementById('mr_btnComparaRutas');
+  config.fsCargaRutas=document.getElementById('mr_carga_rutas');
+  config.cbCentralesCarga=document.getElementById('mr_cbSelCentral');
+  config.cbErroresCarga=document.getElementById('mr_cbSelErroresCargaRutas');
+  config.cbWarningsCarga=document.getElementById('mr_cbSelWarningsCargaRutas');
+  config.fileRutas=document.getElementById('mr_filerutas');
+  config.msgCarga=document.getElementById('mr_msgCargaRutas');
+  config.fsResultadosCarga=document.getElementById('mr_resultados_carga');
+  config.btnCargaArchivoEnBD=document.getElementById('mr_btn_carga_archivo_en_bd');
+  config.contCargaRutas=document.getElementById('mr_contenedor_tabla_carga');
+  config.fsComparaRutas=document.getElementById('mr_compara_rutas');
+  config.msgComparaRutas=document.getElementById('mr_msgComparaRutas');
+  config.rbRutasAgregadas=document.getElementById('mr_rutas_agregadas');
+  config.rbRutasEliminadas=document.getElementById('mr_rutas_eliminadas');
+  config.rbRutasDetalle=document.getElementById('mr_rutas_detalle');
+  config.rbRutasPRI=document.getElementById('mr_rutas_pri');
+  config.rbRutasSIP=document.getElementById('mr_rutas_sip');
+  config.rbRutasS7=document.getElementById('mr_rutas_s7');
+  config.rbRutasCambioParametros=document.getElementById('mr_rutas_cambio_parametros');
+  config.rbRutasErroresS7=document.getElementById('mr_rutas_errores_s7');
+  config.rbRutasSinNemo=document.getElementById('mr_rutas_sin_nemo');
+  config.contTablaComparacion=document.getElementById('mr_contenedor_tabla_comparacion');
+  var mantRutas = new MantenedorRutas(bd, null, null, config);
+}
+function initTrafico(){
+  var config={};
+  config.fecha=document.getElementById('mt_fecha');
+  config.msg=document.getElementById('mt_msg');
+  config.fsTraficoBD=document.getElementById('mt_trafico_bd');
+  config.cbCentralesBD=document.getElementById('mt_cb_central');
+  config.cbRutasBD=document.getElementById('mt_cb_ruta');
+  config.cbDiasBD=document.getElementById('mt_cb_dia');
+  config.fsTraficoMes=document.getElementById('mt_fs_trafico_datos_mes');
+  config.contTraficoMes=document.getElementById('mt_contenedor_trafico_datos_mes');
+  config.fsTraficoDia=document.getElementById('mt_fs_trafico_datos_dia');
+  config.contTraficoDia=document.getElementById('mt_contenedor_trafico_datos_dia');
+  config.fsEstadisticaMensual=document.getElementById('mt_fs_estadistica_trafico_mensual');
+  config.contEstadisticaMensual=document.getElementById('mt_contenedor_estadistica_trafico_mensual');
+  config.fsAcciones=document.getElementById('mt_fs_acciones');
+  config.btnCargarArchivo=document.getElementById('mt_boton_cargar_archivo');
+  config.btnEliminarTraficoCentral=document.getElementById('mt_boton_eliminar_trafico_central');
+  config.btnAnalizarTrafico=document.getElementById('mt_boton_analizar_trafico');
+  config.btnGenerarEstadisticaMensual=document.getElementById('mt_boton_generar_estadistica');
+  config.btnGrabarEstadisticaMensual=document.getElementById('mt_boton_grabar_estadistica');
+  config.fsCargarArchivo=document.getElementById('mt_carga_archivo');
+  config.fileTrafico=document.getElementById('mt_archivo_trafico');
+  config.pbCargaArchivo=document.getElementById('mt_progreso_carga');
+  config.msgCargaArchivo=document.getElementById('mt_msg_carga_archivo');
+  config.fsResultadoCargaArchivo=document.getElementById('mt_resultado_carga_Archivo');
+  config.cbErrores=document.getElementById('mt_cb_errores_archivo');
+  config.cbWarnings=document.getElementById('mt_cb_warnings_archivo');
+  config.msgResultadoArchivo=document.getElementById('mt_msg_resultado_Archivo');
+  config.cbCentralesArchivo=document.getElementById('mt_cb_centrales_archivo');
+  config.cbFechaArchivo=document.getElementById('mt_cb_fecha_archivo');
+  config.cbRutasArchivo=document.getElementById('mt_cb_rutas_archivo');
+  config.cbDiasArchivo=document.getElementById('mt_cb_dias_archivo');
+  config.btnCargaArchivoEnBD=document.getElementById('mt_btn_cargar_archivo_en_bd');
+  config.msgResultadoCargaArchivo=document.getElementById('mt_msg_resultado_carga_archivo');
+  config.fsResultadoDatosMes=document.getElementById('mt_fs_resultado_datos_mes');
+  config.lgResultadoDatosMes=document.getElementById('mt_legend_resultado_datos_mes');
+  config.contResultadoDatosMes=document.getElementById('mt_contenedor_resultado_datos_mes');
+  config.fsResultadoDatosDia=document.getElementById('mt_fs_resultado_datos_dia');
+  config.lgResultadoDatosDia=document.getElementById('mt_legend_resultado_datos_dia');
+  config.contResultadoDatosDia=document.getElementById('mt_contenedor_resultado_datos_dia');
+  config.fsAnalisis=document.getElementById('mt_fs_analisis_resultados');
+  config.rbDetalleTrafico=document.getElementById('mt_detalle_trafico');
+  config.rbRutasSinTrafico=document.getElementById('mt_rutas_sin_trafico');
+  config.rbDetalleEstadisticas=document.getElementById('mt_detalle_estadisticas');
+  config.msgAnalisis=document.getElementById('mt_msg_analisis_resultados');
+  config.contAnalisis=document.getElementById('mt_contenedor_tabla_analisis_resultados');
+  config.fsCargaArchivoError=document.getElementById('mt_fs_resultado_carga_error');
+  config.fsCargaArchivoOK=document.getElementById('mt_fs_resultado_carga_ok');
+  config.pbSaveInBD=document.getElementById('mt_progreso_grabacion_en_bd');
+  var mantRutas = new MantenedorTrafico(bd, config);
+}
+
+function initUsuarios(){
+  var config={};
+  config.cbUsuarios=document.getElementById('mu_usuarios');
+  config.inputNombre=document.getElementById('mu_nombre');
+  config.inputCorreo=document.getElementById('mu_correo');
+  config.checkboxAdministrador=document.getElementById('mu_checkbox_administrador');
+  config.btnAddUsuario=document.getElementById('mu_button_add');
+  config.btnEditUsuario=document.getElementById('mu_button_edit');
+  config.btnDeleteUsuario=document.getElementById('mu_button_delete');
+  config.btnGetUsers=document.getElementById('mu_button_get_users');
+  config.fsAccion=document.getElementById('mu_fs_accion');
+  config.legendAccion=document.getElementById('mu_legend_accion');
+  config.inputNombreAccion=document.getElementById('mu_accion_nombre');
+  config.inputCorreoAccion=document.getElementById('mu_accion_correo');
+  config.checkboxAccionAdministrador=document.getElementById('mu_checkbox_accion_administrador');
+  config.btnAccion=document.getElementById('mu_button_accion');
+  config.msg=document.getElementById('mu_msg_usuario');
+  config.msgAccion=document.getElementById('mu_msg_usuario_accion');
+
+  var mant=new MantenedorUsuarios(bd, config);
+}
+</script>
+</body>
+</html>
